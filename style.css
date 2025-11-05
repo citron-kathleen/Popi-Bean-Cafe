@@ -1,0 +1,356 @@
+:root {
+  /*  Theme Colors and Style Variables  */
+  --bg: #f3f5ef;
+  --panel: #ffffff;
+  --accent: #1b6b3a;
+  --muted: #9aa79a;
+  --card-border: #e6efe6;
+  --radius: 16px;
+  --shadow: 0 6px 18px rgba(15, 40, 20, 0.06);
+}
+
+/*  Reset box sizing  */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial;
+  background: var(--bg);
+  color: #213b2a;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  padding: 24px;
+}
+
+/*  Header Section  */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo .mark {
+  width: 46px;
+  height: 46px;
+  background: var(--accent);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.logo .text {
+  font-weight: 700;
+  font-size: 18px;
+}
+
+/*  Top right date & info  */
+.top-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.top-right .date {
+  color: var(--muted);
+}
+
+/* App container  */
+/* Kapag madami nang items, mag-aadjust to automatically 
+   kasi naka-grid sya. Pero pwede mo rin dagdagan ang width. */
+.app {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 20px;
+  align-items: start;
+  max-width: 1250px; /* <-- Pwede palitan to 1400px para mas wide */
+  margin: 0 auto;
+}
+
+/*  Left menu panel  */
+.menu-panel {
+  background: var(--panel);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--card-border);
+}
+
+/*  Menu header (tabs, etc.)  */
+.menu-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.tabs {
+  display: flex;
+  gap: 10px;
+}
+
+.tab {
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.tab.active {
+  background: #eef7ee;
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/*  Search bar  */
+.search {
+  margin: 8px 0 14px 0;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.search input {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid #e6efe6;
+}
+
+/*  Menu item grid */
+/* Kapag madami na i-aadd na menu, 
+   auto-fit sya dito. Pwede dagdagan ang columns sa repeat() */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* change 3 to 4 or 5 to fit more */
+  gap: 12px;
+}
+
+.card {
+  background: transparent;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid var(--card-border);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 140px;
+}
+
+.card img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.card .name {
+  font-weight: 600;
+}
+
+.card .price {
+  color: var(--muted);
+}
+
+.addbtn {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  border: 2px solid var(--accent);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/*  Right panel (Orders)  */
+.order-panel {
+  background: var(--panel);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--card-border);
+  display: flex;
+  flex-direction: column;
+  height: 720px;
+  justify-content: space-between;
+}
+
+/*  Order content  */
+.order-top {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.toggle {
+  display: flex;
+  gap: 8px;
+}
+
+.toggle button {
+  flex: 1;
+  padding: 10px;
+  border-radius: 999px;
+  border: 1px solid var(--card-border);
+  background: transparent;
+  cursor: pointer;
+}
+
+.toggle button.active {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+/*  Order list  */
+.order-list {
+  flex: 1;
+  background: #fbfdf9;
+  border-radius: 10px;
+  padding: 12px;
+  overflow: auto;
+  border: 1px dashed #e7f0e7;
+}
+
+/*  Order item display  */
+.order-item {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 8px;
+  border-bottom: 1px solid #eef4ee;
+}
+
+.order-item img {
+  width: 56px;
+  height: 48px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.order-item .meta {
+  flex: 1;
+}
+
+.qty {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.qty button {
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  border: 1px solid var(--card-border);
+  background: white;
+  cursor: pointer;
+}
+
+.remove {
+  background: transparent;
+  border: none;
+  color: #b12f2f;
+  cursor: pointer;
+}
+
+/*  Summary at bottom  */
+.summary {
+  padding-top: 12px;
+  border-top: 1px solid #eef4ee;
+}
+
+.summary .row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+}
+
+.place {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+}
+
+.btn-primary {
+  flex: 1;
+  padding: 12px;
+  border-radius: 10px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-secondary {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid var(--card-border);
+  background: transparent;
+  cursor: pointer;
+}
+
+/* PAGINATION SECTION (Circles below menu items)
+
+/*  Container ng pagination 
+   - ilalagay ito sa ilalim ng .cards (menu items)
+   - auto-center sa ilalim
+   - magbibigay ng spacing */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+/*  Mga bilog (dots)*/
+.pagination .dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--card-border); /* default color (grayish) */
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+/*  Active kasalukuyang page  */
+.pagination .dot.active {
+  background: var(--accent); /* green (main color) */
+}
+
+/*  Hover effect   */
+.pagination .dot:hover {
+  background: #b7e3c2;
+}
+
+/*  Responsive for smaller screens  */
+@media (max-width: 1000px) {
+  .app {
+    grid-template-columns: 1fr;
+  }
+  .order-panel {
+    height: auto;
+  }
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

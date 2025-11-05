@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Popi Bean</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!--  HEADER (Logo, Date, User Info)  -->
+    <header>
+      <div class="logo">
+        <!-- PLACE LOGO IMAGE HERE 
+             Example:
+             <img src="images/logo.png" alt="Cafe Logo" class="logo-img">
+        -->
+        <div class="mark">GG</div>
+        <div>
+          <div class="text">Popi Bean Cafe</div>
+          <div class="date">Mockup</div>
+        </div>
+      </div>
+
+      <div class="top-right">
+        <div class="date" id="today"></div>
+        <div class="user-info">Toni — Cashier</div>
+      </div>
+    </header>
+
+    <!--  MAIN CONTENT (Menu and Order Section)  -->
+    <main class="app">
+      <!--  LEFT SIDE: MENU PANEL  -->
+      <section class="menu-panel">
+        <div class="menu-top">
+          <h3>Menu</h3>
+
+          <!--  CATEGORY TABS  -->
+          <div class="tabs">
+            <button class="tab active" data-cat="coffee">Coffee</button>
+            <button class="tab" data-cat="snack">Snack</button>
+            <!-- To ADD more categories:
+                 <button class="tab" data-cat="drinks">Drinks</button>
+            -->
+          </div>
+        </div>
+
+        <!--  SEARCH BOX  -->
+        <div class="search">
+          <input id="search" placeholder="Search items..." />
+        </div>
+
+        <!--  MENU ITEMS WILL APPEAR HERE (from JS)  -->
+        <div class="cards" id="items-grid"></div>
+        <!-- To add a manual item (example only):
+             <div class="card">Latte - ₱100</div> (option lang ito para kung gusto na derecho dito ang paginput indi galing js.)
+        -->
+        <div class="pagination">
+          <span class="dot active"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+      </section>
+
+      <!--  RIGHT SIDE: ORDER PANEL  -->
+      <aside class="order-panel">
+        <div class="order-top">
+          <div class="order-header">
+            <h3>Order</h3>
+            <div class="toggle">
+              <button id="dineBtn" class="active">Dine In</button>
+              <button id="takeBtn">Take Out</button>
+            </div>
+          </div>
+          <p class="cust">Customer: <strong id="cust-name">Guest</strong></p>
+        </div>
+
+        <!--  ORDER LIST (added items)  -->
+        <div class="order-list" id="order-list"></div>
+
+        <!--  SUMMARY SECTION  -->
+        <div class="summary">
+          <div class="row">
+            <div>Subtotal</div>
+            <div id="sub">₱0.00</div>
+          </div>
+          <div class="row">
+            <div>Tax (6%)</div>
+            <div id="tax">₱0.00</div>
+          </div>
+          <div class="row total">
+            <strong>Total</strong>
+            <strong id="total">₱0.00</strong>
+          </div>
+
+          <!--  BUTTONS  -->
+          <div class="place">
+            <button class="btn-secondary" onclick="clearBasket()">Clear</button>
+            <button class="btn-primary" onclick="placeOrder()">
+              Place Order
+            </button>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
