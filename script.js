@@ -7,7 +7,7 @@ const ITEMS = [
     cat: "coffee", // category ng item
     name: "caramel latte", // pangalan ng item
     price: 85, // presyo
-    img: "espresso.png",
+    img: svgData("#a87652"),
   },
   {
     id: "c2",
