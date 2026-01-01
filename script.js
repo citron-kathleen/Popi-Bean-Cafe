@@ -48,31 +48,46 @@ const ITEMS = [
   {
     id: "s1",
     cat: "snack",
-    name: "Cheesecake",
-    price: 150,
+    name: "Nachos",
+    price: 79,
     img: svgData("#f1d6c2"),
   },
   {
     id: "s2",
     cat: "snack",
-    name: "Banana Bread",
-    price: 95,
+    name: "Fries",
+    price: 49,
     img: svgData("#e4b97a"),
   },
   {
     id: "s3",
     cat: "snack",
-    name: "Avocado Toast",
-    price: 125,
+    name: "Nuggets (7 pcs.)",
+    price: 65,
     img: svgData("#a6c88a"),
   },
   {
     id: "s4",
     cat: "snack",
-    name: "Blueberry Muffin",
-    price: 100,
+    name: "PB Meryenda Set (Nachos, Fries, and Nuggets)",
+    price: 170,
     img: svgData("#c7d0f2"),
   },
+  {
+    id: "s5",
+    cat: "snack",
+    name: "Croffles (Biscoff, Banana Caramel, Oreo)",
+    price: 130,
+    img: svgData("#c7d0f2"),
+  },
+  {
+    id: "s6",
+    cat: "snack",
+    name: "Hash Brown",
+    price: 35,
+    img: svgData("#c7d0f2"),
+  },
+  
 ];
 
 // DATE DISPLAY
