@@ -1,339 +1,302 @@
-// Dito nakalagay lahat ng products sa menu.
-// Bawat isa may id, category, name, price, at image.
-// 'const' ginamit kasi hindi ito babaguhin.
-const ITEMS = [
-  {
-    id: "c1", // unique ID para makilala
-    cat: "coffee", // category ng item
-    name: "caramel latte", // pangalan ng item
-    price: 85, // presyo
-    img: svgData("#a87652"),
-  },
-  {
-    id: "c2",
-    cat: "coffee",
-    name: "Cappuccino",
-    price: 140,
-    img: svgData("#a87652"),
-  },
-  {
-    id: "c3",
-    cat: "coffee",
-    name: "Latte",
-    price: 130,
-    img: svgData("#c89e7a"),
-  },
-  {
-    id: "c4",
-    cat: "coffee",
-    name: "Americano",
-    price: 110,
-    img: svgData("#8b6b4a"),
-  },
-  {
-    id: "c5",
-    cat: "coffee",
-    name: "ice tea",
-    price: 60,
-    img: svgData("#8b6b4a"),
-  },
-  {
-    id: "c6",
-    cat: "coffee",
-    name: "yakult",
-    price: 60,
-    img: svgData("#8b6b4a"),
-  },
+// Ilang items ang lalabas kada page
+const itemsPerPage = 9;
+
+// Current page number (default ay page 1)
+let currentPage = 1;
+
+// Current selected category (default = drinks)
+let currentCategory = "drinks";
+
+// Search text ng user (empty sa simula)
+let searchQuery = "";
+
+// ===============================
+// MENU DATA (STATIC DATA)
+// ===============================
+// Dito naka-store lahat ng menu items
+// Walang database, naka-hardcode lang (static system)
+const menuItems = [
+  // bawat object ay isang menu item
+  // id → unique identifier
+  // name → pangalan ng item
+  // price → presyo
+  // category → pang-filter (drinks / snacks / addons)
+
+  { id: 1, name: "Caramel Latte (12oz)", price: 85, category: "drinks" },
+  { id: 2, name: "Caramel Latte (16oz)", price: 110, category: "drinks" },
+  { id: 3, name: "Caramel Latte (22oz)", price: 139, category: "drinks" },
+
+  { id: 4, name: "Americano Sunrise (12oz)", price: 95, category: "drinks" },
+  { id: 5, name: "Americano Sunrise (16oz)", price: 125, category: "drinks" },
+  { id: 6, name: "Americano Sunrise (22oz)", price: 145, category: "drinks" },
+
+  { id: 7, name: "Cinnamon Latte (12oz)", price: 95, category: "drinks" },
+  { id: 8, name: "Cinnamon Latte (16oz)", price: 110, category: "drinks" },
+  { id: 9, name: "Cinnamon Latte (22oz)", price: 139, category: "drinks" },
+
+  { id: 10, name: "Spanish Latte (12oz)", price: 95, category: "drinks" },
+  { id: 11, name: "Spanish Latte (16oz)", price: 125, category: "drinks" },
+  { id: 12, name: "Spanish Latte (22oz)", price: 145, category: "drinks" },
+
+  { id: 13, name: "Mocha Latte (12oz)", price: 85, category: "drinks" },
+  { id: 14, name: "Mocha Latte (16oz)", price: 110, category: "drinks" },
+  { id: 15, name: "Mocha Latte (22oz)", price: 139, category: "drinks" },
+
+  { id: 16, name: "Kape-densada (12oz)", price: 85, category: "drinks" },
+  { id: 17, name: "Kape-densada (16oz)", price: 110, category: "drinks" },
+  { id: 18, name: "Kape-densada (22oz)", price: 139, category: "drinks" },
+
+  { id: 19, name: "Matcha Espresso (12oz)", price: 95, category: "drinks" },
+  { id: 20, name: "Matcha Espresso (16oz)", price: 125, category: "drinks" },
+  { id: 21, name: "Matcha Espresso (22oz)", price: 145, category: "drinks" },
+
+  { id: 22, name: "Matcha Latte (12oz)", price: 90, category: "drinks" },
+  { id: 23, name: "Matcha Latte (16oz)", price: 110, category: "drinks" },
+  { id: 24, name: "Matcha Latte (22oz)", price: 139, category: "drinks" },
+
+  { id: 25, name: "Blueberry Matcha (16oz)", price: 139, category: "drinks" },
+  { id: 26, name: "Blueberry Matcha (22oz)", price: 159, category: "drinks" },
+
+  { id: 27, name: "Strawberry Matcha (16oz)", price: 139, category: "drinks" },
+  { id: 28, name: "Strawberry Matcha (22oz)", price: 159, category: "drinks" },
+
+  { id: 29, name: "Mango Matcha (16oz)", price: 139, category: "drinks" },
+  { id: 30, name: "Mango Matcha (22oz)", price: 159, category: "drinks" },
 
   {
-    id: "s1",
-    cat: "snack",
-    name: "Nachos",
-    price: 79,
-    img: svgData("#f1d6c2"),
-  },
-  {
-    id: "s2",
-    cat: "snack",
-    name: "Fries",
-    price: 49,
-    img: svgData("#e4b97a"),
-  },
-  {
-    id: "s3",
-    cat: "snack",
-    name: "Nuggets (7 pcs.)",
+    id: 31,
+    name: "Strawberry Fruit Tea (16oz)",
     price: 65,
-    img: svgData("#a6c88a"),
+    category: "drinks",
   },
   {
-    id: "s4",
-    cat: "snack",
-    name: "PB Meryenda Set (Nachos, Fries, and Nuggets)",
-    price: 170,
-    img: svgData("#c7d0f2"),
+    id: 32,
+    name: "Strawberry Fruit Tea (22oz)",
+    price: 80,
+    category: "drinks",
+  },
+
+  { id: 33, name: "Passion Fruit Tea (16oz)", price: 75, category: "drinks" },
+  { id: 34, name: "Passion Fruit Tea (22oz)", price: 90, category: "drinks" },
+
+  {
+    id: 35,
+    name: "Lychee Blueberry Tea (16oz)",
+    price: 75,
+    category: "drinks",
   },
   {
-    id: "s5",
-    cat: "snack",
-    name: "Croffles (Biscoff, Banana Caramel, Oreo)",
-    price: 130,
-    img: svgData("#c7d0f2"),
+    id: 36,
+    name: "Lychee Blueberry Tea (22oz)",
+    price: 90,
+    category: "drinks",
+  },
+
+  { id: 37, name: "Peach Mango Tea (16oz)", price: 75, category: "drinks" },
+  { id: 38, name: "Peach Mango Tea (22oz)", price: 90, category: "drinks" },
+
+  { id: 39, name: "Green Apple Tea (16oz)", price: 65, category: "drinks" },
+  { id: 40, name: "Green Apple Tea (22oz)", price: 80, category: "drinks" },
+
+  { id: 41, name: "Kiwi Tea (16oz)", price: 65, category: "drinks" },
+  { id: 42, name: "Kiwi Tea (22oz)", price: 80, category: "drinks" },
+
+  { id: 43, name: "Yakult Strawberry (16oz)", price: 110, category: "drinks" },
+  { id: 44, name: "Yakult Strawberry (22oz)", price: 134, category: "drinks" },
+
+  { id: 45, name: "Yakult Blueberry (16oz)", price: 110, category: "drinks" },
+  { id: 46, name: "Yakult Blueberry (22oz)", price: 134, category: "drinks" },
+
+  {
+    id: 47,
+    name: "Yakult Passion Fruit (16oz)",
+    price: 110,
+    category: "drinks",
   },
   {
-    id: "s6",
-    cat: "snack",
-    name: "Hash Brown",
-    price: 35,
-    img: svgData("#c7d0f2"),
+    id: 48,
+    name: "Yakult Passion Fruit (22oz)",
+    price: 134,
+    category: "drinks",
   },
-  
+
+  { id: 49, name: "Yakult Lemon (16oz)", price: 110, category: "drinks" },
+  { id: 50, name: "Yakult Lemon (22oz)", price: 134, category: "drinks" },
+
+  { id: 51, name: "Nachos", price: 79, category: "snacks" },
+  { id: 52, name: "Fries", price: 49, category: "snacks" },
+  { id: 53, name: "Nuggets (7pcs)", price: 65, category: "snacks" },
+  { id: 54, name: "PB Meryenda Set", price: 170, category: "snacks" },
+
+  { id: 55, name: "Crossfles Biscoff", price: 130, category: "snacks" },
+  { id: 56, name: "Crossfles Banana Caramel", price: 130, category: "snacks" },
+  { id: 57, name: "Crossfles Oreo", price: 130, category: "snacks" },
+
+  { id: 58, name: "Hash Brown", price: 30, category: "snacks" },
+  { id: 59, name: "Pansit Canton", price: 35, category: "snacks" },
+
+  { id: 60, name: "Buldak Carbonara", price: 125, category: "snacks" },
+  { id: 61, name: "Buldak Cheese", price: 125, category: "snacks" },
+  { id: 62, name: "Shin Ramyun", price: 125, category: "snacks" },
+
+  { id: 63, name: "Nata", price: 10, category: "addons" },
+  { id: 64, name: "Fruit Jelly", price: 10, category: "addons" },
+  { id: 65, name: "Yakult Add-on", price: 25, category: "addons" },
+  { id: 66, name: "Egg", price: 15, category: "addons" },
 ];
 
-// DATE DISPLAY
-// Kinukuha ang current date/time at ipinapakita sa top-right corner.
-document.getElementById("today").textContent = new Date().toLocaleString();
+// ===============================
+// ORDER DATA
+// ===============================
 
-// ELEMENT REFERENCES
-// Para di na paulit-ulit mag-query sa Document Object Model (HTML elements)
-const itemsGrid = document.getElementById("items-grid"); // kung saan ilalagay ang cards ng menu
-const orderListEl = document.getElementById("order-list"); // kung saan ilalagay ang mga in-order
+// Dito nilalagay ang mga inorder ng user
+let order = [];
 
-// TABS (Coffee / Snack)
-// Kapag pinindot ang tab, papalitan kung anong category ng items ipapakita.
-document.querySelectorAll(".tab").forEach((t) =>
-  t.addEventListener("click", () => {
-    // Alisin ang 'active' sa lahat ng tab
-    document
-      .querySelectorAll(".tab")
-      .forEach((x) => x.classList.remove("active"));
-    // dito nakalagay ang 'active' sa pinipindot
-    t.classList.add("active");
-    // I-render ulit ang items base sa category na pinili
-    renderItems(t.dataset.cat);
-  })
-);
+// Kinukuha ang HTML elements
+const menuGrid = document.getElementById("menuGrid");
+const pageInfo = document.getElementById("pageInfo");
+const orderList = document.getElementById("orderList");
 
-// SEARCH BAR FUNCTION
-// Kapag nag-type ka sa search input, magfi-filter ng items na tugma sa type mo.
-document.getElementById("search").addEventListener("input", (e) => {
-  const q = e.target.value.trim().toLowerCase(); // text na tinatype mo
-  const active = document.querySelector(".tab.active").dataset.cat; // alamin kung anong category(coffee/snack)
-  renderItems(active, q); // tawagin ulit ang render function para magpakita ng results
-});
+// ===============================
+// FUNCTION: renderMenu
+// ===============================
+// Nagdi-display ng menu items sa screen
+function renderMenu() {
+  menuGrid.innerHTML = "";
 
-// BASKET / ORDER STORAGE
-// Kinukuha ang basket data sa localStorage (para di mawala pag ni-refresh)
-let basket = JSON.parse(localStorage.getItem("gg_basket") || "[]");
-// Kinoconvert lahat ng numeric values para siguradong number type
-basket = basket.map((i) => ({
-  ...i,
-  price: Number(i.price),
-  qty: Number(i.qty),
-  total: Number(i.total),
-}));
-
-// Function para i-save ulit sa localStorage
-function save() {
-  localStorage.setItem("gg_basket", JSON.stringify(basket));
-}
-
-// TEMPORARY IMAGE GENERATOR (PWEDE IDELETE KAPAG MAY IMAGE NA US)
-// Dahil wala pa tayong totoong images, kulay na box lang ito
-// Para may placeholder image sa bawat product
-function svgData(color) {
-  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='200' height='140'><rect rx='12' width='100%' height='100%' fill='${color}'/><text x='50%' y='54%' dominant-baseline='middle' text-anchor='middle' font-size='18' fill='#fff'>Image</text></svg>`;
-  return "data:image/svg+xml;utf8," + encodeURIComponent(svg);
-}
-
-// DISPLAYING (RENDERING) ITEMS
-// Ito ang gumagawa ng cards ng bawat product sa screen.
-function renderItems(cat = "coffee", q = "") {
-  itemsGrid.innerHTML = ""; // PARA CLEAR MUNA KAPAG KAOPEN
-  ITEMS.filter(
-    (i) => i.cat === cat && (!q || i.name.toLowerCase().includes(q)) // filter by category at search
-  ).forEach((i) => {
-    // Gumagawa ng div para sa bawat item
-    const card = document.createElement("div");
-    card.className = "card";
-
-    //kaya nakaganyan yung img src nyan para dependent sya dun sa nasa taas na image.
-    card.innerHTML = `
-      <img src="${i.img}" alt="${i.name}" /> 
-      <div style="text-align:center">
-        <div class="name">${i.name}</div>
-        <div class="price">₱${i.price.toFixed(2)}</div>
-      </div>
-      <div>
-        <button class="addbtn" onclick="addToBasket('${i.id}')">+</button>
-      </div>
-    `;
-    itemsGrid.appendChild(card);
-  });
-}
-
-// INITIAL RENDER
-// Kapag unang bukas ang page, ipapakita agad ang coffee items
-renderItems("coffee");
-renderOrder();
-
-// ADD ITEM TO BASKET
-// Kapag pinindot ang '+' button sa card
-function addToBasket(id) {
-  const it = ITEMS.find((x) => x.id === id); // hanapin item sa list
-  if (!it) return;
-  const existing = basket.find((b) => b.id === id); // check kung meron na sa basket
-
-  if (existing) {
-    existing.qty += 1; // dagdagan quantity
-    existing.total = existing.qty * existing.price;
-  } else {
-    basket.push({
-      id: it.id,
-      name: it.name,
-      price: it.price,
-      qty: 1,
-      total: it.price,
-      img: it.img,
-    });
-  }
-  save();
-  renderOrder(); // update display
-}
-
-// DISPLAY ORDER LIST (RIGHT SIDE)
-// Dito lumalabas ang mga oorderin ni customer
-function renderOrder() {
-  orderListEl.innerHTML = ""; // pang clear lang ito
-
-  // Kapag wala pang laman
-  if (basket.length === 0) {
-    orderListEl.innerHTML =
-      '<div style="color:var(--muted);padding:12px;text-align:center">No items yet. Add from left.</div>';
-  }
-
-  let sub = 0; // subtotal
-  basket.forEach((it, idx) => {
-    sub += it.total;
-
-    // Gumagawa ng row para sa bawat order item
-    const row = document.createElement("div");
-    row.className = "order-item";
-
-    // Display ng order item
-    row.innerHTML = `
-      <div class="meta">
-        <div style="font-weight:600">${it.name}</div>
-        <div style="color:var(--muted);font-size:13px">₱${it.price.toFixed()} each</div>
-      </div>
-      <div style="display:flex;flex-direction:column;align-items:end;gap:6px">
-        <div class="qty">
-          <button onclick="changeQty(${idx},-1)">-</button>
-          <div style="min-width:28px;text-align:center">${it.qty}</div>
-          <button onclick="changeQty(${idx},1)">+</button>
-        </div>
-        <div style="display:flex;gap:8px;align-items:center">
-          <div style="font-weight:700">₱${it.total.toFixed(2)}</div>
-          <button class="remove" onclick="removeItem(${idx})">Remove</button>
-        </div>
-      </div>
-    `;
-    orderListEl.appendChild(row);
-  });
-
-  // Tax at total computation
-  const tax = sub * 0.06;
-  document.getElementById("sub").textContent = `₱${sub.toFixed(2)}`;
-  document.getElementById("tax").textContent = `₱${tax.toFixed(2)}`;
-  document.getElementById("total").textContent = `₱${(sub + tax).toFixed(2)}`;
-}
-
-// CHANGE QUANTITY FUNCTION
-// Kapag pinindot ang + or - sa order item mababawasan or madadagdagan ito
-function changeQty(index, delta) {
-  basket[index].qty += delta;
-  if (basket[index].qty < 1) basket[index].qty = 1; // bawal bumaba sa 1
-  basket[index].total = basket[index].qty * basket[index].price;
-  save();
-  renderOrder();
-}
-
-// REMOVE ITEM FUNCTION
-// Kapag pinindot ang “Remove” button sa order list automatically mawawala ito.
-function removeItem(index) {
-  basket.splice(index, 1); // tanggalin yung item sa basket array
-  save();
-  renderOrder();
-}
-
-// CLEAR BASKET FUNCTION
-// Kapag pinindot ang “Clear” button sa baba para maclear ang basket
-function clearBasket() {
-  if (!confirm("Clear all items?")) return; // may tanong muna bago burahin lahat
-  basket = [];
-  save();
-  renderOrder();
-}
-
-// TOGGLE BUTTONS (DINE IN / TAKE OUT)
-// Kapag pinindot ang dine o take button, magpapalit ng style (active)
-const dineBtn = document.getElementById("dineBtn");
-const takeBtn = document.getElementById("takeBtn");
-
-dineBtn.addEventListener("click", () => {
-  dineBtn.classList.add("active");
-  takeBtn.classList.remove("active");
-});
-takeBtn.addEventListener("click", () => {
-  takeBtn.classList.add("active");
-  dineBtn.classList.remove("active");
-});
-
-// PLACE ORDER FUNCTION
-// Kapag tapos na mag-order at gusto nang i-print ang resibo (TENTATIVE)
-function placeOrder() {
-  if (basket.length === 0) {
-    alert("No items to place!");
-    return;
-  }
-
-  const customer = prompt("Customer name (optional)", "Guest") || "Guest";
-  const mode = dineBtn.classList.contains("active") ? "Dine In" : "Take Out";
-
-  // Gumagawa ng text format ng resibo
-  let receipt = `\n\n\tPOPI BEAN CAFE\n\tOrder Receipt\n\t${new Date().toLocaleString()}\n\tMode: ${mode}\n\tCustomer: ${customer}\n\n`;
-  receipt += "Item\tQty\tPrice\tTotal\n";
-  let sub = 0;
-  basket.forEach((it) => {
-    receipt += `${it.name}\t${it.qty}\t₱${it.price.toFixed(
-      2
-    )}\t₱${it.total.toFixed(2)}\n`;
-    sub += it.total;
-  });
-  const tax = sub * 0.06;
-  const tot = sub + tax;
-  receipt += `\nSubtotal:\t₱${sub.toFixed(2)}\nTax (6%):\t₱${tax.toFixed(
-    2
-  )}\nTotal:\t₱${tot.toFixed(2)}\n\nThank you!`;
-
-  // Bubuksan ang bagong window para sa print preview
-  const w = window.open("", "_blank");
-  w.document.write(
-    `<pre style="font-family:monospace; font-size:20px">${receipt}</pre>`
+  // Filter by category at search text
+  const filtered = menuItems.filter(
+    (i) =>
+      i.category === currentCategory &&
+      i.name.toLowerCase().includes(searchQuery)
   );
-  w.print();
-  w.close();
 
-  // Pagkatapos magprint, linisin ulit ang basket
-  basket = [];
-  save();
+  // Pagination computation
+  const start = (currentPage - 1) * itemsPerPage;
+  const end = start + itemsPerPage;
+
+  // Loop items sa current page
+  for (let i = start; i < end && i < filtered.length; i++) {
+    const item = filtered[i];
+
+    menuGrid.innerHTML += `
+      <div class="menu-card">
+        <h4>${item.name}</h4>
+        <p>${item.price}</p>
+        <button onclick="addToOrder(${item.id})">+</button>
+      </div>
+    `;
+  }
+
+  // Update page text
+  pageInfo.textContent =
+    "Page " +
+    currentPage +
+    " of " +
+    Math.max(1, Math.ceil(filtered.length / itemsPerPage));
+}
+
+// ===============================
+// FUNCTION: addToOrder
+// ===============================
+function addToOrder(id) {
+  const found = order.find((i) => i.id === id);
+
+  if (found) {
+    found.qty++;
+  } else {
+    const item = menuItems.find((i) => i.id === id);
+    order.push({ ...item, qty: 1 });
+  }
   renderOrder();
 }
 
-// EXPOSE FUNCTIONS TO WINDOW
-// Para magamit pa rin yung functions sa HTML onclick=""
-window.addToBasket = addToBasket;
-window.changeQty = changeQty;
-window.removeItem = removeItem;
-window.clearBasket = clearBasket;
-window.placeOrder = placeOrder;
+// ===============================
+// FUNCTION: renderOrder
+// ===============================
+function renderOrder() {
+  orderList.innerHTML = "";
+  let subtotal = 0;
+
+  order.forEach((item) => {
+    subtotal += item.price * item.qty;
+
+    orderList.innerHTML += `
+      <div class="order-item">
+        <span>${item.name}</span>
+        <div class="qty">
+          <button onclick="changeQty(${item.id}, -1)">-</button>
+          <span>${item.qty}</span>
+          <button onclick="changeQty(${item.id}, 1)">+</button>
+        </div>
+      </div>
+    `;
+  });
+
+  const tax = subtotal * 0.06;
+  document.getElementById("subtotal").textContent = subtotal.toFixed(2);
+  document.getElementById("tax").textContent = tax.toFixed(2);
+  document.getElementById("total").textContent = (subtotal + tax).toFixed(2);
+
+  // Clear order button
+  const clearBtn = document.getElementById("clearBtn");
+  clearBtn.onclick = () => {
+    order = [];
+    renderOrder();
+  };
+}
+
+// ===============================
+// FUNCTION: changeQty
+// ===============================
+function changeQty(id, change) {
+  const item = order.find((i) => i.id === id);
+  item.qty += change;
+
+  if (item.qty <= 0) {
+    order = order.filter((i) => i.id !== id);
+  }
+  renderOrder();
+}
+
+// ===============================
+// PAGINATION
+// ===============================
+document.getElementById("nextBtn").onclick = () => {
+  currentPage++;
+  renderMenu();
+};
+
+document.getElementById("prevBtn").onclick = () => {
+  if (currentPage > 1) {
+    currentPage--;
+    renderMenu();
+  }
+};
+
+// ===============================
+// CATEGORY TABS
+// ===============================
+document.querySelectorAll(".tab").forEach((tab) => {
+  tab.onclick = () => {
+    document.querySelector(".tab.active").classList.remove("active");
+    tab.classList.add("active");
+    currentCategory = tab.dataset.category;
+    currentPage = 1;
+    renderMenu();
+  };
+});
+
+// ===============================
+// SEARCH
+// ===============================
+document.getElementById("searchInput").addEventListener("input", (e) => {
+  searchQuery = e.target.value.toLowerCase();
+  currentPage = 1;
+  renderMenu();
+});
+
+// ===============================
+// INITIAL LOAD
+// ===============================
+renderMenu();

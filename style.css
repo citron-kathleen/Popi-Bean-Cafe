@@ -1,356 +1,297 @@
+/* Centralized colors para madaling palitan theme */
 :root {
-  /*  Theme Colors and Style Variables  */
-  --bg: #f3f5ef;
-  --panel: #ffffff;
-  --accent: #1b6b3a;
-  --muted: #9aa79a;
-  --card-border: #e6efe6;
-  --radius: 16px;
-  --shadow: 0 6px 18px rgba(15, 40, 20, 0.06);
+  --green: #1f6b3b; /* Primary green color (cafe theme) */
+  --green-light: #e8f3ed; /* Light green background (soft sa mata) */
+  --beige: #f4f5ee; /* Main page background */
+  --card: #ffffff; /* Card / panel background */
+  --text: #2f3e34; /* Default text color */
 }
 
-/*  Reset box sizing  */
+/* ================= GLOBAL RESET ================= */
+/* Para consistent ang sizing at font sa buong system */
 * {
-  box-sizing: border-box;
+  box-sizing: border-box; /* Prevent overflow issues */
+  font-family: "Segoe UI", sans-serif; /* Clean at professional font */
 }
 
+/* ================= BODY ================= */
+/* Overall page styling */
 body {
-  margin: 0;
-  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial;
-  background: var(--bg);
-  color: #213b2a;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  padding: 24px;
+  margin: 0; /* Tanggal default margin */
+  background: var(--beige); /* Beige background (cafe look) */
+  color: var(--text); /* Default text color */
 }
 
-/*  Header Section  */
-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 18px;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.logo .mark {
-  width: 46px;
-  height: 46px;
-  background: var(--accent);
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-weight: 700;
-  font-size: 18px;
-}
-
-.logo .text {
-  font-weight: 700;
-  font-size: 18px;
-}
-
-/*  Top right date & info  */
-.top-right {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.top-right .date {
-  color: var(--muted);
-}
-
-/* App container  */
-/* Kapag madami nang items, mag-aadjust to automatically 
-   kasi naka-grid sya. Pero pwede mo rin dagdagan ang width. */
+/* ================= APP LAYOUT ================= */
+/* Main layout container (Menu + Order) */
 .app {
-  display: grid;
-  grid-template-columns: 1fr 380px;
-  gap: 20px;
-  align-items: start;
-  max-width: 1250px; /* <-- Pwede palitan to 1400px para mas wide */
-  margin: 0 auto;
+  display: grid; /* Grid layout */
+  grid-template-columns: 2.2fr 1fr; /* Menu mas malapad kaysa Order */
+  gap: 20px; /* Space between columns */
+  padding: 20px;
 }
 
-/*  Left menu panel  */
-.menu-panel {
-  background: var(--panel);
-  border-radius: var(--radius);
-  padding: 18px;
-  box-shadow: var(--shadow);
-  border: 1px solid var(--card-border);
+/* ================= MENU SECTION ================= */
+/* Left side – Menu */
+.menu-section {
+  background: var(--card); /* White card background */
+  border-radius: 16px; /* Rounded corners */
+  padding: 20px;
 }
 
-/*  Menu header (tabs, etc.)  */
-.menu-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 12px;
+/* ================= SEARCH BAR ================= */
+/* Input field para sa menu search */
+.search {
+  width: 100%; /* Full width */
+  padding: 12px;
+  margin: 15px 0;
+  border-radius: 10px;
+  border: 1px solid #ddd;
 }
 
-.tabs {
-  display: flex;
+/* ================= CATEGORY TABS ================= */
+/* Drinks / Snacks / Add-ons buttons */
+.category-tabs {
+  display: flex; /* Horizontal layout */
   gap: 10px;
+  margin-bottom: 10px;
 }
 
-.tab {
-  padding: 8px 14px;
-  border-radius: 999px;
-  border: 1px solid transparent;
-  color: var(--muted);
+.category-tabs .tab {
+  padding: 8px 18px;
+  border-radius: 20px; /* Pill style button */
+  border: 1px solid var(--green);
+  background: #fff;
   cursor: pointer;
 }
 
-.tab.active {
-  background: #eef7ee;
-  color: var(--accent);
-  border-color: var(--accent);
+/* Active category */
+.category-tabs .tab.active {
+  background: var(--green);
+  color: #fff;
 }
 
-/*  Search bar  */
-.search {
-  margin: 8px 0 14px 0;
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-
-.search input {
-  flex: 1;
-  padding: 10px 12px;
-  border-radius: 12px;
-  border: 1px solid #e6efe6;
-}
-
-/*  Menu item grid */
-/* Kapag madami na i-aadd na menu, 
-   auto-fit sya dito. Pwede dagdagan ang columns sa repeat() */
-.cards {
+/* ================= MENU GRID ================= */
+/* Grid ng menu items */
+.menu-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* change 3 to 4 or 5 to fit more */
-  gap: 12px;
+  grid-template-columns: repeat(3, 1fr); /* 3 items per row */
+  gap: 16px;
 }
 
-.card {
-  background: transparent;
-  padding: 12px;
-  border-radius: 12px;
-  border: 1px solid var(--card-border);
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  align-items: center;
-  justify-content: space-between;
-  min-height: 140px;
+/* Individual menu card */
+.menu-card {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 5px;
+  text-align: center;
 }
 
-.card img {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 10px;
-}
-
-.card .name {
-  font-weight: 600;
-}
-
-.card .price {
-  color: var(--muted);
-}
-
-.addbtn {
+/* Add (+) button sa menu */
+.menu-card button {
   width: 36px;
   height: 36px;
-  border-radius: 999px;
-  border: 2px solid var(--accent);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  border-radius: 50%; /* Circle button */
+  border: 1px solid var(--green);
+  background: none;
+  color: var(--green);
+  font-size: 18px;
   cursor: pointer;
 }
 
-/*  Right panel (Orders)  */
-.order-panel {
-  background: var(--panel);
-  border-radius: var(--radius);
-  padding: 18px;
-  box-shadow: var(--shadow);
-  border: 1px solid var(--card-border);
+/* ================= PAGINATION ================= */
+/* Previous / Next buttons */
+.pagination {
+  margin-top: 20px;
   display: flex;
-  flex-direction: column;
-  height: 720px;
-  justify-content: space-between;
-}
-
-/*  Order content  */
-.order-top {
-  display: flex;
-  flex-direction: column;
+  justify-content: center; /* Centered */
   gap: 10px;
 }
 
-.toggle {
+.pagination button {
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--green);
+  background: none;
+}
+
+/* ================= ORDER SECTION ================= */
+/* Right side – Order summary */
+.order-section {
+  background: var(--card);
+  border-radius: 16px;
+  padding: 20px;
+}
+
+/* ================= ORDER TYPE ================= */
+/* Dine In / Take Out buttons */
+.order-type {
   display: flex;
-  gap: 8px;
+  gap: 10px;
 }
 
-.toggle button {
-  flex: 1;
+.order-type button {
+  flex: 1; /* Equal width */
   padding: 10px;
-  border-radius: 999px;
-  border: 1px solid var(--card-border);
-  background: transparent;
-  cursor: pointer;
+  border-radius: 20px;
+  border: 1px solid var(--green);
+  background: none;
 }
 
-.toggle button.active {
-  background: var(--accent);
+/* Active order type */
+.order-type .active {
+  background: var(--green);
   color: white;
-  border-color: var(--accent);
 }
 
-/*  Order list  */
+/* ================= ORDER LIST ================= */
+/* Container ng mga inorder na items */
 .order-list {
-  flex: 1;
-  background: #fbfdf9;
-  border-radius: 10px;
-  padding: 12px;
-  overflow: auto;
-  border: 1px dashed #e7f0e7;
+  background: var(--green-light); /* Light green background */
+  border-radius: 12px;
+  padding: 10px;
+  margin-top: 10px;
+  min-height: 200px; /* Hindi lumiit kahit walang order */
 }
 
-/*  Order item display  */
+/* Individual order item */
 .order-item {
   display: flex;
-  gap: 12px;
-  align-items: center;
-  padding: 8px;
-  border-bottom: 1px solid #eef4ee;
+  justify-content: space-between;
+  margin-bottom: 8px;
 }
 
-.order-item img {
-  width: 56px;
-  height: 48px;
-  border-radius: 8px;
-  object-fit: cover;
-}
-
-.order-item .meta {
-  flex: 1;
-}
-
+/* Quantity controls (+ / -) */
 .qty {
   display: flex;
-  align-items: center;
-  gap: 6px;
+  gap: 5px;
 }
 
 .qty button {
-  width: 26px;
-  height: 26px;
-  border-radius: 6px;
-  border: 1px solid var(--card-border);
-  background: white;
-  cursor: pointer;
+  width: 25px;
+  height: 25px;
 }
 
-.remove {
-  background: transparent;
-  border: none;
-  color: #b12f2f;
-  cursor: pointer;
-}
-
-/*  Summary at bottom  */
+/* ================= SUMMARY ================= */
+/* Subtotal, tax, total */
 .summary {
-  padding-top: 12px;
-  border-top: 1px solid #eef4ee;
+  margin-top: 15px;
 }
 
-.summary .row {
+.summary div {
   display: flex;
   justify-content: space-between;
-  padding: 6px 0;
+  margin-bottom: 6px;
 }
 
+/* Total amount highlight */
+.total {
+  font-weight: bold;
+}
+
+/* ================= ORDER ACTIONS ================= */
+/* Clear at Place Order buttons */
+.order-actions {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+}
+
+/* Place Order button (primary action) */
 .place {
-  margin-top: 12px;
-  display: flex;
-  gap: 8px;
-}
-
-.btn-primary {
-  flex: 1;
-  padding: 12px;
+  background: var(--green);
+  color: #fff;
   border-radius: 10px;
-  background: var(--accent);
-  color: white;
   border: none;
-  cursor: pointer;
+  flex: 2; /* Mas malapad kaysa Clear */
 }
 
-.btn-secondary {
-  padding: 12px;
-  border-radius: 10px;
-  border: 1px solid var(--card-border);
-  background: transparent;
-  cursor: pointer;
-}
+/* =========================
+   FULL GREEN LANDING PAGE
+========================= */
 
-/* PAGINATION SECTION (Circles below menu items)
-
-/*  Container ng pagination 
-   - ilalagay ito sa ilalim ng .cards (menu items)
-   - auto-center sa ilalim
-   - magbibigay ng spacing */
-.pagination {
+.landing-full {
+  height: 100vh;
+  background: var(--green);
   display: flex;
-  justify-content: center;
   align-items: center;
-  gap: 8px;
-  margin-top: 20px;
+  justify-content: center;
 }
 
-/*  Mga bilog (dots)*/
-.pagination .dot {
-  width: 12px;
-  height: 12px;
+/* FLOATING CARD */
+.landing-card {
+  background: white;
+  padding: 50px 65px;
+  border-radius: 26px;
+  text-align: center;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.35);
+  animation: fadeUp 0.8s ease;
+}
+
+/* LOGO */
+.logo-wrap {
+  width: 130px;
+  height: 130px;
+  margin: 0 auto 25px;
   border-radius: 50%;
-  background: var(--card-border); /* default color (grayish) */
-  cursor: pointer;
-  transition: background 0.3s ease;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
 }
 
-/*  Active kasalukuyang page  */
-.pagination .dot.active {
-  background: var(--accent); /* green (main color) */
+.logo-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-/*  Hover effect   */
-.pagination .dot:hover {
-  background: #b7e3c2;
+/* TEXT */
+.landing-card h1 {
+  margin: 0;
+  font-size: 30px;
+  letter-spacing: 6px;
+  color: var(--green);
 }
 
-/*  Responsive for smaller screens  */
-@media (max-width: 1000px) {
-  .app {
-    grid-template-columns: 1fr;
+.landing-card h2 {
+  margin: 12px 0 22px;
+  font-size: 45px;
+  color: var(--text);
+}
+
+/* CAPTION */
+.caption {
+  font-size: 21px;
+  margin-bottom: 40px;
+  color: #555;
+}
+
+/* BUTTON */
+.start-btn {
+  display: inline-block;
+  padding: 16px 48px;
+  background: var(--green);
+  color: white;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+
+/* HOVER */
+.start-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 35px rgba(31, 107, 59, 0.45);
+}
+
+/* ANIMATION */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
   }
-  .order-panel {
-    height: auto;
-  }
-  .cards {
-    grid-template-columns: repeat(2, 1fr);
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
