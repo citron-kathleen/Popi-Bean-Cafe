@@ -1,297 +1,484 @@
-/* Centralized colors para madaling palitan theme */
+/* ================================================= */
+/* COLOR PALETTE & ROOT */
+/* ================================================= */
 :root {
-  --green: #1f6b3b; /* Primary green color (cafe theme) */
-  --green-light: #e8f3ed; /* Light green background (soft sa mata) */
-  --beige: #f4f5ee; /* Main page background */
-  --card: #ffffff; /* Card / panel background */
-  --text: #2f3e34; /* Default text color */
+  --green-dark: #1f3d34;
+  --green-main: #3f7d6a;
+  --green-soft: #dcefe7;
+  --green-light: #f4fbf8;
+  --white: #ffffff;
+  --gray: #e0e0e0;
+  --danger: #e74c3c;
 }
 
-/* ================= GLOBAL RESET ================= */
-/* Para consistent ang sizing at font sa buong system */
 * {
-  box-sizing: border-box; /* Prevent overflow issues */
-  font-family: "Segoe UI", sans-serif; /* Clean at professional font */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
 }
 
-/* ================= BODY ================= */
-/* Overall page styling */
 body {
-  margin: 0; /* Tanggal default margin */
-  background: var(--beige); /* Beige background (cafe look) */
-  color: var(--text); /* Default text color */
+  background: var(--green-light);
+  color: #333;
+  overflow: hidden;
 }
 
-/* ================= APP LAYOUT ================= */
-/* Main layout container (Menu + Order) */
-.app {
-  display: grid; /* Grid layout */
-  grid-template-columns: 2.2fr 1fr; /* Menu mas malapad kaysa Order */
-  gap: 20px; /* Space between columns */
-  padding: 20px;
+/* ================================================= */
+/* BUTTON REFINEMENTS (The "Size" Fix) */
+/* ================================================= */
+button {
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s ease;
 }
 
-/* ================= MENU SECTION ================= */
-/* Left side – Menu */
+button:active {
+  transform: scale(0.96);
+}
+
+.btn-primary {
+  background: var(--green-dark);
+  color: white;
+}
+.btn-primary:hover {
+  background: var(--green-main);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: white;
+}
+.btn-outline:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: white;
+}
+
+.btn-clear {
+  background: #f0f0f0;
+  color: #666;
+}
+.btn-clear:hover {
+  background: #e0e0e0;
+  color: #333;
+}
+
+/* ================================================= */
+/* POS LAYOUT */
+/* ================================================= */
+.pos-header {
+  background: var(--green-dark);
+  color: white;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+}
+
+.pos-container {
+  display: flex;
+  height: calc(100vh - 60px);
+}
+
+/* MENU SECTION (LEFT) */
 .menu-section {
-  background: var(--card); /* White card background */
-  border-radius: 16px; /* Rounded corners */
+  width: 65%;
   padding: 20px;
-}
-
-/* ================= SEARCH BAR ================= */
-/* Input field para sa menu search */
-.search {
-  width: 100%; /* Full width */
-  padding: 12px;
-  margin: 15px 0;
-  border-radius: 10px;
-  border: 1px solid #ddd;
-}
-
-/* ================= CATEGORY TABS ================= */
-/* Drinks / Snacks / Add-ons buttons */
-.category-tabs {
-  display: flex; /* Horizontal layout */
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-.category-tabs .tab {
-  padding: 8px 18px;
-  border-radius: 20px; /* Pill style button */
-  border: 1px solid var(--green);
-  background: #fff;
-  cursor: pointer;
-}
-
-/* Active category */
-.category-tabs .tab.active {
-  background: var(--green);
-  color: #fff;
-}
-
-/* ================= MENU GRID ================= */
-/* Grid ng menu items */
-.menu-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 items per row */
-  gap: 16px;
-}
-
-/* Individual menu card */
-.menu-card {
-  border: 1px solid #eee;
-  border-radius: 8px;
-  padding: 5px;
-  text-align: center;
-}
-
-/* Add (+) button sa menu */
-.menu-card button {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%; /* Circle button */
-  border: 1px solid var(--green);
-  background: none;
-  color: var(--green);
-  font-size: 18px;
-  cursor: pointer;
-}
-
-/* ================= PAGINATION ================= */
-/* Previous / Next buttons */
-.pagination {
-  margin-top: 20px;
+  border-right: 1px solid var(--gray);
   display: flex;
-  justify-content: center; /* Centered */
-  gap: 10px;
+  flex-direction: column;
 }
 
-.pagination button {
-  padding: 8px 14px;
-  border-radius: 8px;
-  border: 1px solid var(--green);
-  background: none;
-}
-
-/* ================= ORDER SECTION ================= */
-/* Right side – Order summary */
-.order-section {
-  background: var(--card);
-  border-radius: 16px;
-  padding: 20px;
-}
-
-/* ================= ORDER TYPE ================= */
-/* Dine In / Take Out buttons */
-.order-type {
+.menu-tabs {
   display: flex;
-  gap: 10px;
+  gap: 8px;
+  margin-bottom: 15px;
 }
 
-.order-type button {
-  flex: 1; /* Equal width */
-  padding: 10px;
+.tab-btn {
+  background: var(--green-soft);
+  color: var(--green-dark);
+  padding: 8px 20px;
   border-radius: 20px;
-  border: 1px solid var(--green);
-  background: none;
 }
-
-/* Active order type */
-.order-type .active {
-  background: var(--green);
+.tab-btn.active {
+  background: var(--green-main);
   color: white;
 }
 
-/* ================= ORDER LIST ================= */
-/* Container ng mga inorder na items */
-.order-list {
-  background: var(--green-light); /* Light green background */
-  border-radius: 12px;
-  padding: 10px;
-  margin-top: 10px;
-  min-height: 200px; /* Hindi lumiit kahit walang order */
+.search-box {
+  width: 100%;
+  padding: 10px 15px;
+  border-radius: 25px;
+  border: 1px solid var(--gray);
+  margin-bottom: 20px;
+  outline: none;
 }
 
-/* Individual order item */
+.menu-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 15px;
+  overflow-y: auto;
+}
+
+.menu-item-btn {
+  background: white;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  padding: 15px;
+  text-align: left;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100px;
+}
+
+.menu-item-btn:hover {
+  border-color: var(--green-main);
+  background: var(--green-soft);
+  transform: translateY(-2px);
+}
+
+.menu-item-btn strong {
+  font-size: 13px;
+  color: var(--green-dark);
+  margin-bottom: 5px;
+}
+.menu-price {
+  color: var(--green-main);
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* ORDER SECTION (RIGHT) */
+.order-section {
+  width: 35%;
+  background: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.order-type-tabs {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 15px;
+}
+.type-btn {
+  flex: 1;
+  padding: 6px;
+  background: #f8f8f8;
+  border: 1px solid var(--gray);
+  border-radius: 6px;
+  font-size: 12px;
+}
+.type-btn.active {
+  background: var(--green-soft);
+  border-color: var(--green-main);
+  color: var(--green-dark);
+}
+
+.order-list {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 15px;
+  border-top: 1px solid var(--gray);
+}
+
+/* ORDER ITEM STYLING */
 .order-item {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 8px;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px dashed var(--gray);
 }
 
-/* Quantity controls (+ / -) */
-.qty {
+.item-info {
+  flex: 2;
+}
+.item-info p {
+  font-size: 13px;
+  font-weight: 600;
+}
+.item-info span {
+  font-size: 11px;
+  color: #888;
+}
+
+.qty-controls {
   display: flex;
-  gap: 5px;
-}
-
-.qty button {
-  width: 25px;
-  height: 25px;
-}
-
-/* ================= SUMMARY ================= */
-/* Subtotal, tax, total */
-.summary {
-  margin-top: 15px;
-}
-
-.summary div {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 6px;
-}
-
-/* Total amount highlight */
-.total {
-  font-weight: bold;
-}
-
-/* ================= ORDER ACTIONS ================= */
-/* Clear at Place Order buttons */
-.order-actions {
-  margin-top: 15px;
-  display: flex;
+  align-items: center;
   gap: 10px;
+  margin: 0 10px;
 }
 
-/* Place Order button (primary action) */
-.place {
-  background: var(--green);
-  color: #fff;
-  border-radius: 10px;
-  border: none;
-  flex: 2; /* Mas malapad kaysa Clear */
-}
-
-/* =========================
-   FULL GREEN LANDING PAGE
-========================= */
-
-.landing-full {
-  height: 100vh;
-  background: var(--green);
+.qty-btn {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: var(--green-soft);
+  color: var(--green-dark);
 }
 
-/* FLOATING CARD */
+.qty-btn:hover {
+  background: var(--green-main);
+  color: white;
+}
+
+.item-total {
+  width: 70px;
+  text-align: right;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+/* TOTALS SECTION */
+.totals-container {
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+.total-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+.grand-total {
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--green-dark);
+  border-top: 1px solid var(--gray);
+  padding-top: 10px;
+  margin-top: 5px;
+}
+
+.order-actions {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 10px;
+}
+.order-actions button {
+  padding: 12px;
+  font-weight: bold;
+}
+
+/* --- MAINTENANCE BUTTON FIX --- */
+.header-actions,
+.header-right {
+  position: relative;
+  z-index: 1000; /* Sinisiguro nito na clickable ang buttons sa header */
+}
+
+/* --- ORDER PANE BUTTONS (Minus - Number - Plus) --- */
+.qty-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px; /* Espasyo sa pagitan ng buttons at number */
+  flex: 1;
+}
+
+.qty-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold;
+  background: var(--green-soft);
+  color: var(--green-dark);
+  border: 1px solid var(--green-main);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.qty-btn:hover {
+  background: var(--green-main);
+  color: white;
+}
+
+.qty-num {
+  font-weight: bold;
+  font-size: 15px;
+  min-width: 20px;
+  text-align: center;
+}
+
+/* --- MENU ITEM HOVER EFFECT --- */
+.menu-item-btn {
+  transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+}
+
+/* --- PROFESSIONAL RECEIPT LOOK --- */
+
+.receipt-dashed {
+  border-top: 1px dashed #000;
+  margin: 8px 0;
+}
+
+.receipt-double-dashed {
+  border-top: 3px double #000;
+  margin: 15px 0 5px;
+}
+
+.no-print {
+  display: block;
+}
+
+/* --- PROFESSIONAL RECEIPT LOOK --- */
+
+.receipt-dashed {
+  border-top: 1px dashed #000;
+  margin: 8px 0;
+}
+
+.receipt-double-dashed {
+  border-top: 3px double #000;
+  margin: 15px 0 5px;
+}
+
+.no-print {
+  display: block;
+}
+
+@media print {
+  body {
+    background: white !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+
+  .pos-header,
+  .menu-section,
+  .order-actions,
+  .qty-controls {
+    display: none !important;
+  }
+
+  .order-section {
+    width: 100% !important;
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 0;
+  }
+
+  /* Thermal printer style font */
+  .order-section,
+  .order-item,
+  .totals-container {
+    font-family: "Courier New", Courier, monospace;
+    color: #000 !important;
+  }
+
+  .order-item {
+    border-bottom: 1px solid #ddd;
+    padding: 8px 0;
+  }
+
+  .grand-total {
+    font-size: 24px !important;
+    border-top: 1px dashed #000;
+    margin-top: 10px;
+  }
+}
+
+.print-only {
+  display: none;
+}
+@media print {
+  .print-only {
+    display: block;
+  }
+}
+
+/* --- LANDING PAGE ENHANCEMENTS --- */
+
+/* Siguraduhin na ang body ay puno ang height at centered ang content */
+.landing-page {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--green-dark); /* O kung anong kulay ang gamit mo */
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden; /* Para iwas scrollbar kung sakaling malaki ang logo */
+}
+
 .landing-card {
   background: white;
-  padding: 50px 65px;
-  border-radius: 26px;
-  text-align: center;
-  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.35);
-  animation: fadeUp 0.8s ease;
-}
-
-/* LOGO */
-.logo-wrap {
-  width: 130px;
-  height: 130px;
-  margin: 0 auto 25px;
-  border-radius: 50%;
-  overflow: hidden;
-  background: white;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
-}
-
-.logo-wrap img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* TEXT */
-.landing-card h1 {
-  margin: 0;
-  font-size: 30px;
-  letter-spacing: 6px;
-  color: var(--green);
-}
-
-.landing-card h2 {
-  margin: 12px 0 22px;
-  font-size: 45px;
-  color: var(--text);
-}
-
-/* CAPTION */
-.caption {
-  font-size: 21px;
-  margin-bottom: 40px;
-  color: #555;
-}
-
-/* BUTTON */
-.start-btn {
-  display: inline-block;
-  padding: 16px 48px;
-  background: var(--green);
-  color: white;
+  padding: 40px;
   border-radius: 30px;
-  text-decoration: none;
-  font-weight: 700;
-  transition: all 0.3s ease;
+  text-align: center;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  width: 90%;
+  max-width: 450px; /* Limit para hindi masyadong malapad sa desktop */
 }
 
-/* HOVER */
-.start-btn:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 14px 35px rgba(31, 107, 59, 0.45);
+/* HETO ANG PINAKA-IMPORTANTE: Control sa Logo Size */
+.landing-card img {
+  width: 180px; /* Sukat ng logo */
+  height: auto;
+  margin-bottom: 20px;
+  border-radius: 50%; /* Kung gusto mong bilog gaya ng nasa screenshot */
+  object-fit: contain;
 }
 
-/* ANIMATION */
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.brand-name {
+  color: var(--green-dark);
+  margin: 10px 0;
+  font-size: 2.5rem;
+}
+
+.welcome-text {
+  font-size: 14px;
+  letter-spacing: 3px;
+  color: #888;
+  margin: 0;
+}
+
+.description {
+  color: #666;
+  font-size: 14px;
+  margin: 20px 0;
+  line-height: 1.6;
+}
+
+.enter-btn {
+  background-color: var(--green-dark);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 50px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  transition: 0.3s;
+}
+
+.enter-btn:hover {
+  background-color: #1a3a32; /* Medyo dark na green */
+  transform: translateY(-3px);
 }

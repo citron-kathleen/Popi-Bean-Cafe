@@ -1,27 +1,4 @@
-// Ilang items ang lalabas kada page
-const itemsPerPage = 9;
-
-// Current page number (default ay page 1)
-let currentPage = 1;
-
-// Current selected category (default = drinks)
-let currentCategory = "drinks";
-
-// Search text ng user (empty sa simula)
-let searchQuery = "";
-
-// ===============================
-// MENU DATA (STATIC DATA)
-// ===============================
-// Dito naka-store lahat ng menu items
-// Walang database, naka-hardcode lang (static system)
-const menuItems = [
-  // bawat object ay isang menu item
-  // id → unique identifier
-  // name → pangalan ng item
-  // price → presyo
-  // category → pang-filter (drinks / snacks / addons)
-
+let menu = [
   { id: 1, name: "Caramel Latte (12oz)", price: 85, category: "drinks" },
   { id: 2, name: "Caramel Latte (16oz)", price: 110, category: "drinks" },
   { id: 3, name: "Caramel Latte (22oz)", price: 139, category: "drinks" },
@@ -142,161 +119,221 @@ const menuItems = [
   { id: 63, name: "Nata", price: 10, category: "addons" },
   { id: 64, name: "Fruit Jelly", price: 10, category: "addons" },
   { id: 65, name: "Yakult Add-on", price: 25, category: "addons" },
-  { id: 66, name: "Egg", price: 15, category: "addons" },
 ];
 
-// ===============================
-// ORDER DATA
-// ===============================
-
-// Dito nilalagay ang mga inorder ng user
 let order = [];
+let currentCategory = "drinks";
+let currentPage = 1;
+let orderType = "Dine-In";
+const itemsPerPage = 9;
 
-// Kinukuha ang HTML elements
-const menuGrid = document.getElementById("menuGrid");
-const pageInfo = document.getElementById("pageInfo");
-const orderList = document.getElementById("orderList");
+window.onload = () => {
+  renderMenu();
+  renderMaintenanceList();
+};
 
-// ===============================
-// FUNCTION: renderMenu
-// ===============================
-// Nagdi-display ng menu items sa screen
+// 1. MENU RENDER
 function renderMenu() {
-  menuGrid.innerHTML = "";
-
-  // Filter by category at search text
-  const filtered = menuItems.filter(
-    (i) =>
-      i.category === currentCategory &&
-      i.name.toLowerCase().includes(searchQuery)
-  );
-
-  // Pagination computation
+  const container = document.getElementById("menuItems");
+  const filtered = menu.filter((item) => item.category === currentCategory);
+  const totalPages = Math.ceil(filtered.length / itemsPerPage);
   const start = (currentPage - 1) * itemsPerPage;
-  const end = start + itemsPerPage;
+  const paginatedItems = filtered.slice(start, start + itemsPerPage);
 
-  // Loop items sa current page
-  for (let i = start; i < end && i < filtered.length; i++) {
-    const item = filtered[i];
+  container.innerHTML = "";
+  paginatedItems.forEach((item) => {
+    container.innerHTML += `
+            <button class="menu-item-btn" onclick="addToOrder(${
+              item.id
+            })" style="transition: none !important; transform: none !important; cursor: pointer;">
+                <strong>${item.name}</strong>
+                <span class="menu-price">₱${item.price.toFixed(2)}</span>
+            </button>`;
+  });
 
-    menuGrid.innerHTML += `
-      <div class="menu-card">
-        <h4>${item.name}</h4>
-        <p>${item.price}</p>
-        <button onclick="addToOrder(${item.id})">+</button>
-      </div>
-    `;
-  }
-
-  // Update page text
-  pageInfo.textContent =
-    "Page " +
-    currentPage +
-    " of " +
-    Math.max(1, Math.ceil(filtered.length / itemsPerPage));
+  document.getElementById("pageDisplay").innerText = `Page ${currentPage} of ${
+    totalPages || 1
+  }`;
+  document.getElementById("prevBtn").disabled = currentPage === 1;
+  document.getElementById("nextBtn").disabled = currentPage >= totalPages;
 }
 
-// ===============================
-// FUNCTION: addToOrder
-// ===============================
+// 2. ORDER LOGIC
 function addToOrder(id) {
-  const found = order.find((i) => i.id === id);
-
-  if (found) {
-    found.qty++;
+  const item = menu.find((m) => m.id === id);
+  const existing = order.find((o) => o.id === id);
+  if (existing) {
+    existing.qty++;
   } else {
-    const item = menuItems.find((i) => i.id === id);
     order.push({ ...item, qty: 1 });
   }
   renderOrder();
 }
 
-// ===============================
-// FUNCTION: renderOrder
-// ===============================
 function renderOrder() {
-  orderList.innerHTML = "";
+  const list = document.getElementById("orderList");
   let subtotal = 0;
+  list.innerHTML = "";
 
   order.forEach((item) => {
-    subtotal += item.price * item.qty;
-
-    orderList.innerHTML += `
-      <div class="order-item">
-        <span>${item.name}</span>
-        <div class="qty">
-          <button onclick="changeQty(${item.id}, -1)">-</button>
-          <span>${item.qty}</span>
-          <button onclick="changeQty(${item.id}, 1)">+</button>
-        </div>
-      </div>
-    `;
+    const itemTotal = item.price * item.qty;
+    subtotal += itemTotal;
+    list.innerHTML += `
+            <div class="order-item" style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px dashed #ccc;">
+                <div><strong>${item.name}</strong><br><small>₱${
+      item.price
+    }</small></div>
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <button class="qty-btn" onclick="updateQty(${
+                      item.id
+                    }, -1)">-</button>
+                    <span>${item.qty}</span>
+                    <button class="qty-btn" onclick="updateQty(${
+                      item.id
+                    }, 1)">+</button>
+                </div>
+                <div>₱${itemTotal.toFixed(2)}</div>
+            </div>`;
   });
 
   const tax = subtotal * 0.06;
-  document.getElementById("subtotal").textContent = subtotal.toFixed(2);
-  document.getElementById("tax").textContent = tax.toFixed(2);
-  document.getElementById("total").textContent = (subtotal + tax).toFixed(2);
+  const total = subtotal + tax;
 
-  // Clear order button
-  const clearBtn = document.getElementById("clearBtn");
-  clearBtn.onclick = () => {
-    order = [];
-    renderOrder();
-  };
+  document.getElementById("subtotalDisplay").innerText = `₱${subtotal.toFixed(
+    2
+  )}`;
+  document.getElementById("taxDisplay").innerText = `₱${tax.toFixed(2)}`;
+  document.getElementById("totalDisplay").innerText = `₱${total.toFixed(2)}`;
 }
 
-// ===============================
-// FUNCTION: changeQty
-// ===============================
-function changeQty(id, change) {
-  const item = order.find((i) => i.id === id);
-  item.qty += change;
 
-  if (item.qty <= 0) {
-    order = order.filter((i) => i.id !== id);
+// 3. MAINTENANCE LOGIC
+function renderMaintenanceList() {
+  const dropdown = document.getElementById("deleteDropdown");
+  if (!dropdown) return;
+
+  dropdown.innerHTML = '<option value="">-- Select Item to Delete --</option>';
+  const sortedMenu = [...menu].sort((a, b) =>
+    a.category.localeCompare(b.category)
+  );
+
+  sortedMenu.forEach((item) => {
+    dropdown.innerHTML += `
+            <option value="${item.id}">[${item.category.toUpperCase()}] ${
+      item.name
+    } - ₱${item.price.toFixed(2)}</option>`;
+  });
+}
+
+function addItem() {
+  const n = document.getElementById("itemName").value;
+  const p = document.getElementById("itemPrice").value;
+  const c = document.getElementById("itemCat").value;
+
+  // Validation Check
+  if (n.trim() === "" || p.trim() === "") {
+    alert("Please fill in name and price.");
+    return;
+  }
+
+  // Add to Array
+  menu.push({ id: Date.now(), name: n, price: parseFloat(p), category: c });
+
+  // Refresh UI
+  renderMenu();
+  renderMaintenanceList();
+
+  // Show Success Message
+  const successMsg = document.getElementById("successMsg");
+  if (successMsg) {
+    successMsg.innerText = "Item added successfully!";
+    successMsg.style.display = "block";
+    setTimeout(() => {
+      successMsg.style.display = "none";
+    }, 2000);
+  } else {
+    alert("Item added successfully!");
+  }
+
+  // Clear Inputs
+  document.getElementById("itemName").value = "";
+  document.getElementById("itemPrice").value = "";
+}
+
+function deleteItemSelected() {
+  const dropdown = document.getElementById("deleteDropdown");
+  const selectedId = dropdown.value;
+
+  if (!selectedId) {
+    alert("Pumili muna ng item na buburahin.");
+    return;
+  }
+
+  const itemToDelete = menu.find((m) => m.id == selectedId);
+
+  if (confirm(`Are you sure to delete ${itemToDelete.name} at the menu?`)) {
+    menu = menu.filter((m) => m.id != selectedId);
+    renderMenu();
+    renderMaintenanceList();
+    alert("Item deleted successfully!");
+  }
+}
+
+// 4. PLACE ORDER
+function placeOrder() {
+  if (order.length === 0) {
+    alert("Pumili muna ng items bago mag-order!");
+    return;
+  }
+  alert("Order Successful! Proceeding to pring receipt...");
+  window.print();
+  // clearOrder(); // Optional: i-uncomment kung gusto mo ma-clear ang cart after order
+}
+
+// 5. HELPERS
+function openMaintenance() {
+  renderMaintenanceList();
+  document.getElementById("maintenanceModal").style.display = "flex";
+}
+
+function closeMaintenance() {
+  document.getElementById("maintenanceModal").style.display = "none";
+}
+
+function updateQty(id, delta) {
+  const item = order.find((o) => o.id === id);
+  if (item) {
+    item.qty += delta;
+    if (item.qty <= 0) order = order.filter((o) => o.id !== id);
   }
   renderOrder();
 }
 
-// ===============================
-// PAGINATION
-// ===============================
-document.getElementById("nextBtn").onclick = () => {
-  currentPage++;
-  renderMenu();
-};
-
-document.getElementById("prevBtn").onclick = () => {
-  if (currentPage > 1) {
-    currentPage--;
-    renderMenu();
-  }
-};
-
-// ===============================
-// CATEGORY TABS
-// ===============================
-document.querySelectorAll(".tab").forEach((tab) => {
-  tab.onclick = () => {
-    document.querySelector(".tab.active").classList.remove("active");
-    tab.classList.add("active");
-    currentCategory = tab.dataset.category;
-    currentPage = 1;
-    renderMenu();
-  };
-});
-
-// ===============================
-// SEARCH
-// ===============================
-document.getElementById("searchInput").addEventListener("input", (e) => {
-  searchQuery = e.target.value.toLowerCase();
+function setCategory(cat, e) {
+  currentCategory = cat;
   currentPage = 1;
+  document
+    .querySelectorAll(".tab-btn")
+    .forEach((b) => b.classList.remove("active"));
+  e.target.classList.add("active");
   renderMenu();
-});
+}
 
-// ===============================
-// INITIAL LOAD
-// ===============================
-renderMenu();
+function changePage(s) {
+  currentPage += s;
+  renderMenu();
+}
+
+function clearOrder() {
+  order = [];
+  renderOrder();
+}
+
+function setOrderType(t, e) {
+  orderType = t;
+  document.getElementById("modeDisplay").innerText = t;
+  document
+    .querySelectorAll(".type-btn")
+    .forEach((b) => b.classList.remove("active"));
+  e.target.classList.add("active");
+}

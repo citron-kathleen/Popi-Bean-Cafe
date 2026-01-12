@@ -2,73 +2,346 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Popi Bean Cafe</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Popi Bean Cafe | POS</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="app">
-      <!-- MENU -->
-      <section class="menu-section">
-        <h2>Menu</h2>
+    <header
+      class="pos-header no-print"
+      style="
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding: 0 20px;
+        background-color: var(
+          --green-dark
+        ); /* Nilagyan ko ng color para kita */
+        height: 60px;
+      "
+    >
+      <div class="header-left">
+        <h2 style="color: white; margin: 0; font-size: 24px">POPI BEAN CAFE</h2>
+      </div>
 
-        <div class="category-tabs">
-          <button class="tab active" data-category="drinks">Drinks</button>
-          <button class="tab" data-category="snacks">Snacks</button>
-          <button class="tab" data-category="addons">Add-ons</button>
+      <div
+        class="header-right"
+        style="
+          position: absolute;
+          right: 20px;
+          top: 50%;
+          transform: translateY(-50%);
+          display: flex;
+          gap: 10px;
+          z-index: 9999;
+        "
+      >
+        <button
+          class="btn-outline"
+          onclick="openMaintenance()"
+          style="cursor: pointer; padding: 8px 15px"
+        >
+          Maintenance
+        </button>
+        <button
+          class="btn-outline"
+          onclick="location.href='index.html'"
+          style="cursor: pointer; padding: 8px 15px"
+        >
+          Logout
+        </button>
+      </div>
+    </header>
+
+    <div class="pos-container">
+      <section class="menu-section no-print">
+        <div class="menu-tabs">
+          <button class="tab-btn active" onclick="setCategory('drinks', event)">
+            Drinks
+          </button>
+          <button class="tab-btn" onclick="setCategory('snacks', event)">
+            Snacks
+          </button>
+          <button class="tab-btn" onclick="setCategory('addons', event)">
+            Add-ons
+          </button>
         </div>
 
-        <input
-          type="text"
-          id="searchInput"
-          class="search"
-          placeholder="Search items..."
-        />
+        <div
+          class="menu-items"
+          id="menuItems"
+          style="
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 100px);
+            gap: 15px;
+          "
+        ></div>
 
-        <div class="menu-grid" id="menuGrid"></div>
-
-        <div class="pagination">
-          <button id="prevBtn">Previous</button>
-          <span id="pageInfo"></span>
-          <button id="nextBtn">Next</button>
+        <div
+          class="pagination-controls"
+          style="
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+          "
+        >
+          <button class="btn-primary" id="prevBtn" onclick="changePage(-1)">
+            ←
+          </button>
+          <span
+            id="pageDisplay"
+            style="font-weight: bold; color: var(--green-dark)"
+            >Page 1</span
+          >
+          <button class="btn-primary" id="nextBtn" onclick="changePage(1)">
+            →
+          </button>
         </div>
       </section>
 
-      <!-- ORDER -->
       <aside class="order-section">
-        <h2>Order</h2>
-
-        <div class="order-type">
-          <button class="active">Dine In</button>
-          <button>Take Out</button>
+        <div class="print-only" style="text-align: center; margin-bottom: 20px">
+          <h1 style="font-family: 'Courier New', monospace">POPI BEAN CAFE</h1>
+          <p>Official Receipt</p>
+          <div class="receipt-dashed"></div>
         </div>
+        
+        <h3 class="no-print">Current Order</h3>
+        <div
+          class="order-type-tabs no-print"
+          style="display: flex; gap: 5px; margin-bottom: 10px"
+        >
+          <button
+            class="type-btn active"
+            onclick="setOrderType('Dine-In', event)"
+            style="flex: 1"
+          >
+            Dine-In
+          </button>
+          <button
+            class="type-btn"
+            onclick="setOrderType('Take-Out', event)"
+            style="flex: 1"
+          >
+            Take-Out
+          </button>
+        </div>
+        <p class="no-print" style="font-size: 12px; margin-bottom: 10px">
+          Customer Mode: <strong id="modeDisplay">Dine-In</strong>
+        </p>
 
-        <p class="customer">Customer: <strong>Guest</strong></p>
-
-        <!-- IMPORTANT: orderList should be a container -->
         <div class="order-list" id="orderList"></div>
 
-        <div class="summary">
-          <div>
-            <span>Subtotal</span>
-            <span id="subtotal">₱0.00</span>
+        <div class="totals-container">
+          <div class="receipt-dashed"></div>
+
+          <div class="total-row">
+            <span>Subtotal</span><span id="subtotalDisplay">₱0.00</span>
           </div>
-          <div>
-            <span>Tax (6%)</span>
-            <span id="tax">₱0.00</span>
+          <div class="total-row">
+            <span>Tax (6%)</span><span id="taxDisplay">₱0.00</span>
           </div>
-          <div class="total">
-            <span>Total</span>
-            <span id="total">₱0.00</span>
+
+          <div class="receipt-double-dashed"></div>
+
+          <div
+            class="grand-total"
+            style="display: flex; justify-content: space-between"
+          >
+            <span>TOTAL</span><span id="totalDisplay">₱0.00</span>
           </div>
+
+          <div class="receipt-dashed"></div>
         </div>
 
-        <div class="order-actions">
-          <!-- ID ADDED HERE -->
-          <button id="clearBtn" class="clear">Clear</button>
-          <button class="place">Place Order</button>
+        <div
+          class="order-actions no-print"
+          style="
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 10px;
+            margin-top: 15px;
+          "
+        >
+          <button class="btn-clear" onclick="clearOrder()">Clear</button>
+          <button class="btn-primary" onclick="placeOrder()">
+            PLACE ORDER
+          </button>
         </div>
       </aside>
+    </div>
+
+    <div
+      class="modal"
+      id="maintenanceModal"
+      style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 2000;
+        justify-content: center;
+        align-items: center;
+      "
+    >
+      <div
+        class="modal-content"
+        style="
+          background: white;
+          padding: 25px;
+          border-radius: 20px;
+          width: 400px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        "
+      >
+        <h3 style="margin-bottom: 15px; color: var(--green-dark)">
+          Maintenance
+        </h3>
+
+        <div
+          style="
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+          "
+        >
+          <p
+            style="
+              font-size: 11px;
+              font-weight: bold;
+              color: #666;
+              margin-bottom: 8px;
+              text-transform: uppercase;
+            "
+          >
+            Add New Item
+          </p>
+          <input
+            type="text"
+            id="itemName"
+            placeholder="Item Name"
+            style="
+              width: 100%;
+              padding: 10px;
+              margin-bottom: 10px;
+              border: 1px solid #ccc;
+              border-radius: 8px;
+            "
+          />
+          <input
+            type="number"
+            id="itemPrice"
+            placeholder="Price (₱)"
+            style="
+              width: 100%;
+              padding: 10px;
+              margin-bottom: 10px;
+              border: 1px solid #ccc;
+              border-radius: 8px;
+            "
+          />
+          <select
+            id="itemCat"
+            style="
+              width: 100%;
+              padding: 10px;
+              margin-bottom: 12px;
+              border: 1px solid #ccc;
+              border-radius: 8px;
+            "
+          >
+            <option value="drinks">Drinks</option>
+            <option value="snacks">Snacks</option>
+            <option value="addons">Add-ons</option>
+          </select>
+          <button
+            class="btn-primary"
+            style="width: 100%; padding: 12px"
+            onclick="addItem()"
+          >
+            Add New Item
+          </button>
+        </div>
+
+        <div>
+          <p
+            style="
+              font-size: 11px;
+              font-weight: bold;
+              color: #666;
+              margin-bottom: 8px;
+              text-transform: uppercase;
+            "
+          >
+            Manage Items (Delete)
+          </p>
+          <select
+            id="deleteDropdown"
+            style="
+              width: 100%;
+              padding: 10px;
+              border: 1px solid #ccc;
+              border-radius: 8px;
+              font-size: 13px;
+              margin-bottom: 12px;
+            "
+          ></select>
+          <button
+            onclick="deleteItemSelected()"
+            style="
+              width: 100%;
+              background: var(--danger, #e74c3c);
+              color: white;
+              border: none;
+              padding: 12px;
+              border-radius: 8px;
+              cursor: pointer;
+              font-weight: bold;
+              margin-bottom: 10px;
+            "
+          >
+            Delete Item
+          </button>
+
+          <p
+            id="successMsg"
+            style="
+              color: green;
+              font-size: 12px;
+              display: none;
+              text-align: center;
+              margin-bottom: 10px;
+              font-weight: bold;
+            "
+          >
+            Action successful!
+          </p>
+
+          <button
+            class="btn-clear"
+            style="
+              width: 100%;
+              padding: 12px;
+              font-weight: bold;
+              background: #f0f0f0;
+              color: #333;
+              border: none;
+              border-radius: 8px;
+              cursor: pointer;
+            "
+            onclick="closeMaintenance()"
+          >
+            Back
+          </button>
+        </div>
+      </div>
     </div>
 
     <script src="script.js"></script>
