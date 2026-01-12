@@ -1,16 +1,17 @@
-/* ================================================= */
-/* COLOR PALETTE & ROOT */
-/* ================================================= */
+/* ================= COLOR PALETTE ================= */
+/* Dito naka-define lahat ng kulay na ginagamit sa buong system */
+
 :root {
-  --green-dark: #1f3d34;
-  --green-main: #3f7d6a;
-  --green-soft: #dcefe7;
-  --green-light: #f4fbf8;
-  --white: #ffffff;
-  --gray: #e0e0e0;
-  --danger: #e74c3c;
+  --green-dark: #1f3d34; /* Dark green – header, buttons */
+  --green-main: #3f7d6a; /* Main green – highlights */
+  --green-soft: #dcefe7; /* Light green – hover, tabs */
+  --green-light: #f4fbf8; /* Background */
+  --white: #ffffff; /* White */
+  --gray: #e0e0e0; /* Gray borders */
+  --danger: #e74c3c; /* Red – delete buttons */
 }
 
+/* Reset ng default margin/padding ng browser */
 * {
   margin: 0;
   padding: 0;
@@ -18,15 +19,16 @@
   font-family: "Segoe UI", sans-serif;
 }
 
+/* Overall background ng system */
 body {
   background: var(--green-light);
   color: #333;
   overflow: hidden;
 }
 
-/* ================================================= */
-/* BUTTON REFINEMENTS (The "Size" Fix) */
-/* ================================================= */
+/* ================= BUTTON STYLES ================= */
+/* General style ng lahat ng buttons */
+
 button {
   border: none;
   border-radius: 8px;
@@ -37,10 +39,12 @@ button {
   transition: all 0.2s ease;
 }
 
+/* Kapag pinindot ang button */
 button:active {
   transform: scale(0.96);
 }
 
+/* Primary button (PLACE ORDER, Add Item, etc.) */
 .btn-primary {
   background: var(--green-dark);
   color: white;
@@ -50,6 +54,7 @@ button:active {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Outline button (Maintenance, Logout) */
 .btn-outline {
   background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.5);
@@ -60,6 +65,7 @@ button:active {
   border-color: white;
 }
 
+/* Clear button */
 .btn-clear {
   background: #f0f0f0;
   color: #666;
@@ -69,9 +75,9 @@ button:active {
   color: #333;
 }
 
-/* ================================================= */
-/* POS LAYOUT */
-/* ================================================= */
+/* ================= POS LAYOUT ================= */
+
+/* Header / Top bar */
 .pos-header {
   background: var(--green-dark);
   color: white;
@@ -82,12 +88,14 @@ button:active {
   height: 60px;
 }
 
+/* Main container ng POS */
 .pos-container {
   display: flex;
   height: calc(100vh - 60px);
 }
 
-/* MENU SECTION (LEFT) */
+/* ================= MENU SECTION (LEFT) ================= */
+
 .menu-section {
   width: 65%;
   padding: 20px;
@@ -96,6 +104,7 @@ button:active {
   flex-direction: column;
 }
 
+/* Category tabs (Drinks, Snacks, Add-ons) */
 .menu-tabs {
   display: flex;
   gap: 8px;
@@ -108,11 +117,14 @@ button:active {
   padding: 8px 20px;
   border-radius: 20px;
 }
+
+/* Kapag active yung tab */
 .tab-btn.active {
   background: var(--green-main);
   color: white;
 }
 
+/* Search bar (kung meron) */
 .search-box {
   width: 100%;
   padding: 10px 15px;
@@ -122,6 +134,7 @@ button:active {
   outline: none;
 }
 
+/* Grid ng menu items */
 .menu-items {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -129,6 +142,7 @@ button:active {
   overflow-y: auto;
 }
 
+/* Individual menu item button */
 .menu-item-btn {
   background: white;
   border: 1px solid transparent;
@@ -142,24 +156,29 @@ button:active {
   height: 100px;
 }
 
+/* Hover effect ng menu item */
 .menu-item-btn:hover {
   border-color: var(--green-main);
   background: var(--green-soft);
   transform: translateY(-2px);
 }
 
+/* Item name */
 .menu-item-btn strong {
   font-size: 13px;
   color: var(--green-dark);
   margin-bottom: 5px;
 }
+
+/* Item price */
 .menu-price {
   color: var(--green-main);
   font-weight: bold;
   font-size: 14px;
 }
 
-/* ORDER SECTION (RIGHT) */
+/* ================= ORDER SECTION (RIGHT) ================= */
+
 .order-section {
   width: 35%;
   background: white;
@@ -168,11 +187,13 @@ button:active {
   flex-direction: column;
 }
 
+/* Dine-In / Take-Out tabs */
 .order-type-tabs {
   display: flex;
   gap: 5px;
   margin-bottom: 15px;
 }
+
 .type-btn {
   flex: 1;
   padding: 6px;
@@ -181,12 +202,15 @@ button:active {
   border-radius: 6px;
   font-size: 12px;
 }
+
+/* Active order type */
 .type-btn.active {
   background: var(--green-soft);
   border-color: var(--green-main);
   color: var(--green-dark);
 }
 
+/* Order list container */
 .order-list {
   flex: 1;
   overflow-y: auto;
@@ -194,7 +218,8 @@ button:active {
   border-top: 1px solid var(--gray);
 }
 
-/* ORDER ITEM STYLING */
+/* ================= ORDER ITEM ================= */
+
 .order-item {
   display: flex;
   justify-content: space-between;
@@ -203,174 +228,71 @@ button:active {
   border-bottom: 1px dashed var(--gray);
 }
 
-.item-info {
-  flex: 2;
-}
 .item-info p {
   font-size: 13px;
   font-weight: 600;
 }
+
 .item-info span {
   font-size: 11px;
   color: #888;
 }
 
+/* Quantity controls */
 .qty-controls {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin: 0 10px;
 }
 
 .qty-btn {
   width: 24px;
   height: 24px;
-  padding: 0;
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   background: var(--green-soft);
   color: var(--green-dark);
 }
 
+/* Hover sa plus/minus */
 .qty-btn:hover {
   background: var(--green-main);
   color: white;
 }
 
+/* Total per item */
 .item-total {
   width: 70px;
   text-align: right;
   font-weight: bold;
-  font-size: 13px;
 }
 
-/* TOTALS SECTION */
+/* ================= TOTALS ================= */
+
 .totals-container {
   background: #f9f9f9;
   padding: 15px;
   border-radius: 10px;
   margin-bottom: 15px;
 }
+
 .total-row {
   display: flex;
   justify-content: space-between;
   font-size: 13px;
-  margin-bottom: 5px;
 }
+
 .grand-total {
   font-size: 18px;
   font-weight: bold;
   color: var(--green-dark);
   border-top: 1px solid var(--gray);
-  padding-top: 10px;
-  margin-top: 5px;
 }
 
-.order-actions {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 10px;
-}
-.order-actions button {
-  padding: 12px;
-  font-weight: bold;
-}
-
-/* --- MAINTENANCE BUTTON FIX --- */
-.header-actions,
-.header-right {
-  position: relative;
-  z-index: 1000; /* Sinisiguro nito na clickable ang buttons sa header */
-}
-
-/* --- ORDER PANE BUTTONS (Minus - Number - Plus) --- */
-.qty-controls {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px; /* Espasyo sa pagitan ng buttons at number */
-  flex: 1;
-}
-
-.qty-btn {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  font-weight: bold;
-  background: var(--green-soft);
-  color: var(--green-dark);
-  border: 1px solid var(--green-main);
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.qty-btn:hover {
-  background: var(--green-main);
-  color: white;
-}
-
-.qty-num {
-  font-weight: bold;
-  font-size: 15px;
-  min-width: 20px;
-  text-align: center;
-}
-
-/* --- MENU ITEM HOVER EFFECT --- */
-.menu-item-btn {
-  transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
-}
-
-/* --- PROFESSIONAL RECEIPT LOOK --- */
-
-.receipt-dashed {
-  border-top: 1px dashed #000;
-  margin: 8px 0;
-}
-
-.receipt-double-dashed {
-  border-top: 3px double #000;
-  margin: 15px 0 5px;
-}
-
-.no-print {
-  display: block;
-}
-
-/* --- PROFESSIONAL RECEIPT LOOK --- */
-
-.receipt-dashed {
-  border-top: 1px dashed #000;
-  margin: 8px 0;
-}
-
-.receipt-double-dashed {
-  border-top: 3px double #000;
-  margin: 15px 0 5px;
-}
-
-.no-print {
-  display: block;
-}
+/* ================= PRINT MODE ================= */
+/* Kapag nag-print ng receipt */
 
 @media print {
-  body {
-    background: white !important;
-  }
   .no-print {
-    display: none !important;
-  }
-
-  .pos-header,
-  .menu-section,
-  .order-actions,
-  .qty-controls {
     display: none !important;
   }
 
@@ -382,48 +304,26 @@ button:active {
     padding: 0;
   }
 
-  /* Thermal printer style font */
   .order-section,
   .order-item,
   .totals-container {
-    font-family: "Courier New", Courier, monospace;
+    font-family: "Courier New", monospace;
     color: #000 !important;
-  }
-
-  .order-item {
-    border-bottom: 1px solid #ddd;
-    padding: 8px 0;
   }
 
   .grand-total {
     font-size: 24px !important;
-    border-top: 1px dashed #000;
-    margin-top: 10px;
   }
 }
 
-.print-only {
-  display: none;
-}
-@media print {
-  .print-only {
-    display: block;
-  }
-}
+/* ================= LANDING PAGE ================= */
 
-/* --- LANDING PAGE ENHANCEMENTS --- */
-
-/* Siguraduhin na ang body ay puno ang height at centered ang content */
 .landing-page {
-  margin: 0;
-  padding: 0;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--green-dark); /* O kung anong kulay ang gamit mo */
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  overflow: hidden; /* Para iwas scrollbar kung sakaling malaki ang logo */
+  background-color: var(--green-dark);
 }
 
 .landing-card {
@@ -431,54 +331,18 @@ button:active {
   padding: 40px;
   border-radius: 30px;
   text-align: center;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-  width: 90%;
-  max-width: 450px; /* Limit para hindi masyadong malapad sa desktop */
+  max-width: 450px;
 }
 
-/* HETO ANG PINAKA-IMPORTANTE: Control sa Logo Size */
+/* Logo size */
 .landing-card img {
-  width: 180px; /* Sukat ng logo */
-  height: auto;
-  margin-bottom: 20px;
-  border-radius: 50%; /* Kung gusto mong bilog gaya ng nasa screenshot */
-  object-fit: contain;
-}
-
-.brand-name {
-  color: var(--green-dark);
-  margin: 10px 0;
-  font-size: 2.5rem;
-}
-
-.welcome-text {
-  font-size: 14px;
-  letter-spacing: 3px;
-  color: #888;
-  margin: 0;
-}
-
-.description {
-  color: #666;
-  font-size: 14px;
-  margin: 20px 0;
-  line-height: 1.6;
+  width: 180px;
+  border-radius: 50%;
 }
 
 .enter-btn {
   background-color: var(--green-dark);
   color: white;
-  border: none;
   padding: 15px 30px;
   border-radius: 50px;
-  font-weight: bold;
-  font-size: 16px;
-  cursor: pointer;
-  width: 100%;
-  transition: 0.3s;
-}
-
-.enter-btn:hover {
-  background-color: #1a3a32; /* Medyo dark na green */
-  transform: translateY(-3px);
 }

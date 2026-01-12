@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Character encoding -->
     <meta charset="UTF-8" />
+
+    <!-- Title na makikita sa browser tab -->
     <title>Popi Bean Cafe | POS</title>
+
+    <!-- Link papunta sa CSS file -->
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <!-- ================= HEADER / TOP BAR ================= -->
+    <!-- Ito yung nasa taas: Cafe name + Maintenance + Logout -->
     <header
       class="pos-header no-print"
       style="
@@ -15,16 +22,16 @@
         justify-content: space-between;
         width: 100%;
         padding: 0 20px;
-        background-color: var(
-          --green-dark
-        ); /* Nilagyan ko ng color para kita */
+        background-color: var(--green-dark);
         height: 60px;
       "
     >
+      <!-- Left side: Cafe name -->
       <div class="header-left">
         <h2 style="color: white; margin: 0; font-size: 24px">POPI BEAN CAFE</h2>
       </div>
 
+      <!-- Right side: Maintenance + Logout buttons -->
       <div
         class="header-right"
         style="
@@ -37,6 +44,7 @@
           z-index: 9999;
         "
       >
+        <!-- Bubukas ng maintenance modal -->
         <button
           class="btn-outline"
           onclick="openMaintenance()"
@@ -44,6 +52,8 @@
         >
           Maintenance
         </button>
+
+        <!-- Magla-logout at babalik sa index.html -->
         <button
           class="btn-outline"
           onclick="location.href='index.html'"
@@ -54,8 +64,11 @@
       </div>
     </header>
 
+    <!-- ================= MAIN POS LAYOUT ================= -->
     <div class="pos-container">
+      <!-- ================= MENU SECTION (LEFT) ================= -->
       <section class="menu-section no-print">
+        <!-- Category Tabs -->
         <div class="menu-tabs">
           <button class="tab-btn active" onclick="setCategory('drinks', event)">
             Drinks
@@ -68,6 +81,7 @@
           </button>
         </div>
 
+        <!-- Lalagyan ng mga products (galing sa JS) -->
         <div
           class="menu-items"
           id="menuItems"
@@ -79,6 +93,7 @@
           "
         ></div>
 
+        <!-- Pagination buttons -->
         <div
           class="pagination-controls"
           style="
@@ -92,25 +107,33 @@
           <button class="btn-primary" id="prevBtn" onclick="changePage(-1)">
             ←
           </button>
+
+          <!-- Page number -->
           <span
             id="pageDisplay"
             style="font-weight: bold; color: var(--green-dark)"
             >Page 1</span
           >
+
           <button class="btn-primary" id="nextBtn" onclick="changePage(1)">
             →
           </button>
         </div>
       </section>
 
+      <!-- ================= ORDER SECTION (RIGHT) ================= -->
       <aside class="order-section">
+        <!-- Ito lang ang lalabas sa printed receipt -->
         <div class="print-only" style="text-align: center; margin-bottom: 20px">
           <h1 style="font-family: 'Courier New', monospace">POPI BEAN CAFE</h1>
           <p>Official Receipt</p>
           <div class="receipt-dashed"></div>
         </div>
-        
+
+        <!-- Current Order title -->
         <h3 class="no-print">Current Order</h3>
+
+        <!-- Dine-In / Take-Out buttons -->
         <div
           class="order-type-tabs no-print"
           style="display: flex; gap: 5px; margin-bottom: 10px"
@@ -130,18 +153,23 @@
             Take-Out
           </button>
         </div>
+
+        <!-- Display ng current order mode -->
         <p class="no-print" style="font-size: 12px; margin-bottom: 10px">
           Customer Mode: <strong id="modeDisplay">Dine-In</strong>
         </p>
 
+        <!-- Lalagyan ng ordered items -->
         <div class="order-list" id="orderList"></div>
 
+        <!-- Totals section -->
         <div class="totals-container">
           <div class="receipt-dashed"></div>
 
           <div class="total-row">
             <span>Subtotal</span><span id="subtotalDisplay">₱0.00</span>
           </div>
+
           <div class="total-row">
             <span>Tax (6%)</span><span id="taxDisplay">₱0.00</span>
           </div>
@@ -158,6 +186,7 @@
           <div class="receipt-dashed"></div>
         </div>
 
+        <!-- Clear + Place Order buttons -->
         <div
           class="order-actions no-print"
           style="
@@ -175,6 +204,8 @@
       </aside>
     </div>
 
+    <!-- ================= MAINTENANCE MODAL ================= -->
+    <!-- Lalabas kapag pinindot ang Maintenance -->
     <div
       class="modal"
       id="maintenanceModal"
@@ -205,6 +236,7 @@
           Maintenance
         </h3>
 
+        <!-- Add new item form -->
         <div
           style="
             border-bottom: 1px solid #eee;
@@ -223,53 +255,25 @@
           >
             Add New Item
           </p>
-          <input
-            type="text"
-            id="itemName"
-            placeholder="Item Name"
-            style="
-              width: 100%;
-              padding: 10px;
-              margin-bottom: 10px;
-              border: 1px solid #ccc;
-              border-radius: 8px;
-            "
-          />
-          <input
-            type="number"
-            id="itemPrice"
-            placeholder="Price (₱)"
-            style="
-              width: 100%;
-              padding: 10px;
-              margin-bottom: 10px;
-              border: 1px solid #ccc;
-              border-radius: 8px;
-            "
-          />
-          <select
-            id="itemCat"
-            style="
-              width: 100%;
-              padding: 10px;
-              margin-bottom: 12px;
-              border: 1px solid #ccc;
-              border-radius: 8px;
-            "
-          >
+
+          <!-- Item name -->
+          <input type="text" id="itemName" placeholder="Item Name" />
+
+          <!-- Item price -->
+          <input type="number" id="itemPrice" placeholder="Price (₱)" />
+
+          <!-- Category selector -->
+          <select id="itemCat">
             <option value="drinks">Drinks</option>
             <option value="snacks">Snacks</option>
             <option value="addons">Add-ons</option>
           </select>
-          <button
-            class="btn-primary"
-            style="width: 100%; padding: 12px"
-            onclick="addItem()"
-          >
-            Add New Item
-          </button>
+
+          <!-- Add item button -->
+          <button class="btn-primary" onclick="addItem()">Add New Item</button>
         </div>
 
+        <!-- Delete item section -->
         <div>
           <p
             style="
@@ -282,68 +286,23 @@
           >
             Manage Items (Delete)
           </p>
-          <select
-            id="deleteDropdown"
-            style="
-              width: 100%;
-              padding: 10px;
-              border: 1px solid #ccc;
-              border-radius: 8px;
-              font-size: 13px;
-              margin-bottom: 12px;
-            "
-          ></select>
-          <button
-            onclick="deleteItemSelected()"
-            style="
-              width: 100%;
-              background: var(--danger, #e74c3c);
-              color: white;
-              border: none;
-              padding: 12px;
-              border-radius: 8px;
-              cursor: pointer;
-              font-weight: bold;
-              margin-bottom: 10px;
-            "
-          >
-            Delete Item
-          </button>
 
-          <p
-            id="successMsg"
-            style="
-              color: green;
-              font-size: 12px;
-              display: none;
-              text-align: center;
-              margin-bottom: 10px;
-              font-weight: bold;
-            "
-          >
-            Action successful!
-          </p>
+          <!-- Dropdown ng items -->
+          <select id="deleteDropdown"></select>
 
-          <button
-            class="btn-clear"
-            style="
-              width: 100%;
-              padding: 12px;
-              font-weight: bold;
-              background: #f0f0f0;
-              color: #333;
-              border: none;
-              border-radius: 8px;
-              cursor: pointer;
-            "
-            onclick="closeMaintenance()"
-          >
-            Back
-          </button>
+          <!-- Delete button -->
+          <button onclick="deleteItemSelected()">Delete Item</button>
+
+          <!-- Success message -->
+          <p id="successMsg" style="display: none">Action successful!</p>
+
+          <!-- Back button -->
+          <button class="btn-clear" onclick="closeMaintenance()">Back</button>
         </div>
       </div>
     </div>
 
+    <!-- JavaScript file -->
     <script src="script.js"></script>
   </body>
 </html>
