@@ -1,0 +1,139 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Popi Bean Cafe | System Landing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+    }body {
+  background: #2b1b14; /* original dark coffee tone */
+  color: #f5f1ee;
+  min-height: 100vh;
+}
+
+.landing-full {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+}
+
+.landing-card {
+  background: #3a241a; /* solid, not glass */
+  border-radius: 14px;
+  padding: 55px 45px;
+  max-width: 460px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.45);
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.logo-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.logo-wrap img {
+  width: 140px; /* bigger logo */
+  height: auto;
+  border-radius: 50%; /* ROUND LOGO */
+  background: #ffffff;
+  padding: 10px;
+}
+
+h1 {
+  font-size: 13px;
+  letter-spacing: 5px;
+  font-weight: 500;
+  color: #c7a17a;
+}
+
+h2 {
+  font-size: 30px;
+  font-weight: 700;
+  margin: 12px 0 18px;
+  color: #ffffff;
+}
+
+.caption {
+  font-size: 14px;
+  color: #d6c8be;
+  margin-bottom: 28px;
+}
+
+.about {
+  font-size: 13.5px;
+  line-height: 1.8;
+  color: #e2d6cd;
+  margin-bottom: 40px;
+}
+
+.start-btn {
+  display: inline-block;
+  padding: 15px 44px;
+  background: #c78b55; /* original accent */
+  color: #2b1b14;
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 1px;
+  border-radius: 10px;
+  transition: all 0.25s ease;
+}
+
+.start-btn:hover {
+  background: #ddb089;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.35);
+}
+
+.footer-text {
+  margin-top: 45px;
+  font-size: 11px;
+  color: #b7a59a;
+}
+
+@media (max-width: 480px) {
+  .landing-card {
+    padding: 45px 28px;
+  }
+
+  h2 {
+    font-size: 26px;
+  }
+}
+
+  </style>
+</head>
+<body>  <section class="landing-full">
+    <div class="landing-card"><!-- LOGO (NOT ROUND) -->
+  <div class="logo-wrap">
+    <img src="logo.png" alt="Popi Bean Cafe Logo" />
+  </div>
+
+  <!-- TITLE -->
+  <h1>WELCOME TO</h1>
+  <h2>Popi Bean Cafe</h2>
+
+  <p class="caption">Start your day right!</p>
+
+  
+
+  <!-- BUTTON -->
+  <a href="menu.html" class="start-btn">ENTER SYSTEM</a>
+
+  <div class="footer-text">
+    © 2026 Popi Bean Cafe • Internal System
+  </div>
+
+</div>
+
+  </section></body>
+</html>
