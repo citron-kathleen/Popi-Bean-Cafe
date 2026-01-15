@@ -52,7 +52,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Dim effect para mabasa ang text */
+  background: rgba(0, 0, 0, 0.5); 
   z-index: -1;
 }
 
@@ -91,7 +91,7 @@ body {
 
 .btn-outline {
     background-color: transparent;
-    border: 2px solid white; /* Puti para litaw sa madilim na header */
+    border: 2px solid white; 
     color: white;
     padding: 8px 18px;
     border-radius: 8px;
@@ -106,12 +106,12 @@ body {
 /* Hover effect para maging interactive */
 .btn-outline:hover {
     background-color: white;
-    color: var(--green-dark); /* Nagpapalit ng kulay pag tinapatan ng mouse */
-    transform: translateY(-2px); /* Bahagyang aangat */
+    color: var(--green-dark); 
+    transform: translateY(-2px);
 }
 
 .btn-outline:active {
-    transform: translateY(0); /* Babalik sa dati pag clinick */
+    transform: translateY(0); 
 }
 
 .pos-container {
@@ -176,7 +176,7 @@ body {
 .item-img-container {
     width: 100px;
     height: 100px;
-    min-width: 100px; /* Lock ang lapad para hindi maging oval */
+    min-width: 100px; 
     border-radius: 50%;
     overflow: hidden;
     border: 3px solid var(--green-soft);
@@ -189,15 +189,15 @@ body {
 .item-img-container img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Ito ang gamot sa piga na picture */
+    object-fit: cover; 
 }
 
 .item-img-circle {
   width: 70px;
   height: 70px;
-  min-width: 70px; /* UPDATE: Prevents squishing */
+  min-width: 70px; 
   border-radius: 50%;
-  object-fit: cover; /* UPDATE: Flexible fit, no more stretching */
+  object-fit: cover; 
   background: #f0f0f0;
   flex-shrink: 0;
   transition: transform 0.3s ease;
@@ -223,7 +223,7 @@ body {
 /* ORDER SECTION (RIGHT PANEL) - RESTORED SIZE */
 /* ================================================= */
 .order-section {
-  width: 35%; /* Ibinalik sa original na laki base sa screenshot */
+  width: 35%; 
   background: white;
   padding: 20px;
   border-left: 1px solid var(--gray);
@@ -243,16 +243,16 @@ body {
 /* ================================================= */
 .order-item {
   display: flex;
-  align-items: center; /* Pantay verticaly */
+  align-items: center; 
   justify-content: space-between;
   padding: 12px 0;
   border-bottom: 1px dashed var(--gray);
 }
 
-/* Pangalan ng Item - kinukuha ang lahat ng space sa kaliwa */
+
 .item-info {
   flex: 1; 
-  min-width: 0; /* Importante para sa ellipsis */
+  min-width: 0; 
   padding-right: 10px;
 }
 
@@ -261,21 +261,20 @@ body {
   font-size: 15px;
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis; /* Lalagyan ng "..." kung sobrang haba */
+  text-overflow: ellipsis; 
   color: var(--green-dark);
 }
 
-/* Gitna: Buttons - Naka-lock ang sukat para pantay pababa */
 .qty-controls {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 12px;
-  width: 110px; /* Fixed width para magmukhang column ang buttons */
+  width: 110px; 
   margin: 0 10px;
 }
 
-/* Presyo sa dulo - Fixed width para pantay ang alignment sa kanan */
+
 .item-total-price {
   width: 85px;
   text-align: right;
@@ -426,13 +425,13 @@ body {
 .custom-modal {
     display: none; 
     position: fixed;
-    z-index: 9999; /* Siguradong nasa ibabaw ng lahat */
+    z-index: 9999; 
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Eto yung nagpapadilim sa likod */
-    backdrop-filter: blur(4px); /* Ginagawang blurry ang background */
+    background-color: rgba(0, 0, 0, 0.7); 
+    backdrop-filter: blur(4px); 
     align-items: center;
     justify-content: center;
 }
@@ -462,12 +461,12 @@ body {
 .confirm-btns { 
     display: flex; 
     gap: 15px; 
-    margin-top: 40px; /* Nilayuan ang space sa pagitan ng text at buttons */
+    margin-top: 40px; 
     justify-content: center;
 }
 
 .btn-modal-back {
-    min-width: 150px; /* Siniguro na hindi maputol ang text */
+    min-width: 150px; 
     padding: 15px;
     border: none;
     border-radius: 12px;
@@ -476,11 +475,11 @@ body {
     cursor: pointer;
     font-weight: bold;
     font-size: 15px;
-    white-space: nowrap; /* Bawal mag-wrap ang text */
+    white-space: nowrap; 
 }
 
 .btn-modal-danger {
-    min-width: 150px; /* Siniguro na kasya ang 'Confirm' */
+    min-width: 150px; 
     padding: 15px;
     border: none;
     border-radius: 12px;
@@ -489,7 +488,7 @@ body {
     cursor: pointer;
     font-weight: bold;
     font-size: 15px;
-    white-space: nowrap; /* Bawal mag-wrap ang text */
+    white-space: nowrap; 
 }
 
 /* ================================================= */
