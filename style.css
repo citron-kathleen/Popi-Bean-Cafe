@@ -21,65 +21,97 @@
 body {
   background: var(--green-light);
   color: #333;
+}
+
+/* ================================================= */
+/* LANDING PAGE & MULTIMEDIA (Video Background) */
+/* ================================================= */
+.landing-page {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   overflow: hidden;
+  position: relative;
+}
+
+.bg-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -2;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+}
+
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Dim effect para mabasa ang text */
+  z-index: -1;
+}
+
+.landing-card {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  padding: 40px;
+  border-radius: 30px;
+  text-align: center;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  width: 90%;
+  max-width: 420px;
+}
+
+.landing-card img {
+  width: 150px;
+  height: 150px;
+  margin-bottom: 20px;
+  border-radius: 50%;
+  object-fit: cover; /* UPDATE: Flexible fit */
+  border: 4px solid var(--green-soft);
 }
 
 /* ================================================= */
-/* BUTTON REFINEMENTS (The "Size" Fix) */
-/* ================================================= */
-button {
-  border: none;
-  border-radius: 8px;
-  padding: 8px 16px;
-  cursor: pointer;
-  font-size: 13px;
-  font-weight: 500;
-  transition: all 0.2s ease;
-}
-
-button:active {
-  transform: scale(0.96);
-}
-
-.btn-primary {
-  background: var(--green-dark);
-  color: white;
-}
-.btn-primary:hover {
-  background: var(--green-main);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.btn-outline {
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  color: white;
-}
-.btn-outline:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: white;
-}
-
-.btn-clear {
-  background: #f0f0f0;
-  color: #666;
-}
-.btn-clear:hover {
-  background: #e0e0e0;
-  color: #333;
-}
-
-/* ================================================= */
-/* POS LAYOUT */
+/* POS LAYOUT (MENU & ORDER PANELS) */
 /* ================================================= */
 .pos-header {
   background: var(--green-dark);
   color: white;
-  padding: 10px 20px;
+  padding: 0 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 60px;
+}
+
+.btn-outline {
+    background-color: transparent;
+    border: 2px solid white; /* Puti para litaw sa madilim na header */
+    color: white;
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Hover effect para maging interactive */
+.btn-outline:hover {
+    background-color: white;
+    color: var(--green-dark); /* Nagpapalit ng kulay pag tinapatan ng mouse */
+    transform: translateY(-2px); /* Bahagyang aangat */
+}
+
+.btn-outline:active {
+    transform: translateY(0); /* Babalik sa dati pag clinick */
 }
 
 .pos-container {
@@ -91,217 +123,180 @@ button:active {
 .menu-section {
   width: 65%;
   padding: 20px;
-  border-right: 1px solid var(--gray);
-  display: flex;
-  flex-direction: column;
+  background: var(--green-light);
+  overflow-y: auto;
 }
 
 .menu-tabs {
   display: flex;
-  gap: 8px;
-  margin-bottom: 15px;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
 .tab-btn {
   background: var(--green-soft);
   color: var(--green-dark);
-  padding: 8px 20px;
-  border-radius: 20px;
+  padding: 10px 25px;
+  border-radius: 25px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
 }
+
 .tab-btn.active {
   background: var(--green-main);
   color: white;
 }
 
-.search-box {
-  width: 100%;
-  padding: 10px 15px;
-  border-radius: 25px;
-  border: 1px solid var(--gray);
-  margin-bottom: 20px;
-  outline: none;
-}
-
+/* PROFESSIONAL MENU CARDS (Circular Image Style) */
 .menu-items {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 15px;
-  overflow-y: auto;
 }
 
 .menu-item-btn {
   background: white;
-  border: 1px solid transparent;
-  border-radius: 12px;
+  border: none;
+  border-radius: 20px;
   padding: 15px;
-  text-align: left;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100px;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-.menu-item-btn strong {
-  font-size: 13px;
+.menu-item-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.item-img-container {
+    width: 100px;
+    height: 100px;
+    min-width: 100px; /* Lock ang lapad para hindi maging oval */
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--green-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.item-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ito ang gamot sa piga na picture */
+}
+
+.item-img-circle {
+  width: 70px;
+  height: 70px;
+  min-width: 70px; /* UPDATE: Prevents squishing */
+  border-radius: 50%;
+  object-fit: cover; /* UPDATE: Flexible fit, no more stretching */
+  background: #f0f0f0;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.item-details {
+  text-align: left;
+}
+
+.item-details strong {
+  display: block;
+  font-size: 15px;
   color: var(--green-dark);
-  margin-bottom: 5px;
-}
-.menu-price {
-  color: var(--green-main);
-  font-weight: bold;
-  font-size: 14px;
+  margin-bottom: 4px;
 }
 
-/* ORDER SECTION (RIGHT) */
+.menu-price {
+  color: #27ae60;
+  font-weight: 800;
+  font-size: 16px;
+}
+/* ================================================= */
+/* ORDER SECTION (RIGHT PANEL) - RESTORED SIZE */
+/* ================================================= */
 .order-section {
-  width: 35%;
+  width: 35%; /* Ibinalik sa original na laki base sa screenshot */
   background: white;
   padding: 20px;
+  border-left: 1px solid var(--gray);
   display: flex;
   flex-direction: column;
-}
-
-.order-type-tabs {
-  display: flex;
-  gap: 5px;
-  margin-bottom: 15px;
-}
-.type-btn {
-  flex: 1;
-  padding: 6px;
-  background: #f8f8f8;
-  border: 1px solid var(--gray);
-  border-radius: 6px;
-  font-size: 12px;
-}
-.type-btn.active {
-  background: var(--green-soft);
-  border-color: var(--green-main);
-  color: var(--green-dark);
+  height: 100%;
 }
 
 .order-list {
   flex: 1;
   overflow-y: auto;
-  margin-bottom: 15px;
-  border-top: 1px solid var(--gray);
+  margin-bottom: 20px;
 }
 
-/* ORDER ITEM STYLING */
+/* ================================================= */
+/* ALIGNED BUTTONS LOGIC */
+/* ================================================= */
 .order-item {
   display: flex;
+  align-items: center; /* Pantay verticaly */
   justify-content: space-between;
-  align-items: center;
   padding: 12px 0;
   border-bottom: 1px dashed var(--gray);
 }
 
+/* Pangalan ng Item - kinukuha ang lahat ng space sa kaliwa */
 .item-info {
-  flex: 2;
-}
-.item-info p {
-  font-size: 13px;
-  font-weight: 600;
-}
-.item-info span {
-  font-size: 11px;
-  color: #888;
+  flex: 1; 
+  min-width: 0; /* Importante para sa ellipsis */
+  padding-right: 10px;
 }
 
+.item-info strong {
+  display: block;
+  font-size: 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Lalagyan ng "..." kung sobrang haba */
+  color: var(--green-dark);
+}
+
+/* Gitna: Buttons - Naka-lock ang sukat para pantay pababa */
 .qty-controls {
   display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: center;
+  gap: 12px;
+  width: 110px; /* Fixed width para magmukhang column ang buttons */
   margin: 0 10px;
 }
 
-.qty-btn {
-  width: 24px;
-  height: 24px;
-  padding: 0;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--green-soft);
-  color: var(--green-dark);
-}
-
-.qty-btn:hover {
-  background: var(--green-main);
-  color: white;
-}
-
-.item-total {
-  width: 70px;
+/* Presyo sa dulo - Fixed width para pantay ang alignment sa kanan */
+.item-total-price {
+  width: 85px;
   text-align: right;
   font-weight: bold;
-  font-size: 13px;
-}
-
-/* TOTALS SECTION */
-.totals-container {
-  background: #f9f9f9;
-  padding: 15px;
-  border-radius: 10px;
-  margin-bottom: 15px;
-}
-.total-row {
-  display: flex;
-  justify-content: space-between;
-  font-size: 13px;
-  margin-bottom: 5px;
-}
-.grand-total {
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 16px;
   color: var(--green-dark);
-  border-top: 1px solid var(--gray);
-  padding-top: 10px;
-  margin-top: 5px;
 }
 
-.order-actions {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 10px;
-}
-.order-actions button {
-  padding: 12px;
-  font-weight: bold;
-}
-
-/* --- MAINTENANCE BUTTON FIX --- */
-.header-actions,
-.header-right {
-  position: relative;
-  z-index: 1000; /* Sinisiguro nito na clickable ang buttons sa header */
-}
-
-/* --- ORDER PANE BUTTONS (Minus - Number - Plus) --- */
-.qty-controls {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px; /* Espasyo sa pagitan ng buttons at number */
-  flex: 1;
-}
-
+/* Quantity Button Styles */
 .qty-btn {
   width: 28px;
   height: 28px;
   border-radius: 50%;
+  background: var(--green-soft);
+  border: 1px solid var(--green-main);
+  font-weight: bold;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
-  font-weight: bold;
-  background: var(--green-soft);
-  color: var(--green-dark);
-  border: 1px solid var(--green-main);
-  cursor: pointer;
-  transition: all 0.2s;
+  transition: 0.2s;
 }
 
 .qty-btn:hover {
@@ -311,152 +306,195 @@ button:active {
 
 .qty-num {
   font-weight: bold;
-  font-size: 15px;
   min-width: 20px;
   text-align: center;
 }
 
-/* --- MENU ITEM HOVER EFFECT --- */
-.menu-item-btn {
-  transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+/* ================================================= */
+/* TOTALS & ACTIONS */
+/* ================================================= */
+.totals-container {
+  background: #fdfdfd;
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px solid #eee;
 }
 
-/* --- RECEIPT LOOK --- */
+.total-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
 
+.grand-total {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--green-dark);
+  display: flex;
+  justify-content: space-between;
+}
+
+.order-actions {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.btn-primary {
+  background: var(--green-dark);
+  color: white;
+  padding: 12px;
+  border-radius: 8px;
+}
+.btn-clear {
+  background: #eee;
+  color: #666;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+/* ================================================= */
+/* MODAL & MAINTENANCE */
+/* ================================================= */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 2000;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 25px;
+  width: 400px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+.modal-input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+
+/* ================================================= */
+/* PRINT & RESPONSIVE */
+/* ================================================= */
 .receipt-dashed {
-  border-top: 1px dashed #000;
-  margin: 8px 0;
+  border-top: 1px dashed #bbb;
+  margin: 10px 0;
 }
-
 .receipt-double-dashed {
-  border-top: 3px double #000;
-  margin: 15px 0 5px;
-}
-
-.no-print {
-  display: block;
+  border-top: 3px double #333;
+  margin: 10px 0;
 }
 
 @media print {
-  body {
-    background: white !important;
-  }
   .no-print {
     display: none !important;
   }
-
-  .pos-header,
-  .menu-section,
-  .order-actions,
-  .qty-controls {
-    display: none !important;
+  .print-only {
+    display: block !important;
   }
-
   .order-section {
     width: 100% !important;
-    position: absolute;
+    border: none;
+  }
+}
+
+@media (max-width: 1024px) {
+  .pos-container {
+    flex-direction: column;
+    height: auto;
+  }
+  .menu-section,
+  .order-section {
+    width: 100%;
+  }
+}
+
+/* Dark Overlay Background */
+.custom-modal {
+    display: none; 
+    position: fixed;
+    z-index: 9999; /* Siguradong nasa ibabaw ng lahat */
     left: 0;
     top: 0;
-    padding: 0;
-  }
-
-  /* Thermal printer style font */
-  .order-section,
-  .order-item,
-  .totals-container {
-    font-family: "Courier New", Courier, monospace;
-    color: #000 !important;
-  }
-
-  .order-item {
-    border-bottom: 1px solid #ddd;
-    padding: 8px 0;
-  }
-
-  .grand-total {
-    font-size: 24px !important;
-    border-top: 1px dashed #000;
-    margin-top: 10px;
-  }
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Eto yung nagpapadilim sa likod */
+    backdrop-filter: blur(4px); /* Ginagawang blurry ang background */
+    align-items: center;
+    justify-content: center;
 }
 
-.print-only {
-  display: none;
-}
-@media print {
-  .print-only {
-    display: block;
-  }
-}
-
-/* --- LANDING PAGE ENHANCEMENTS --- */
-
-/* Siguraduhin na ang body ay puno ang height at centered ang content */
-.landing-page {
-  margin: 0;
-  padding: 0;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--green-dark); /* O kung anong kulay ang gamit mo */
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  overflow: hidden; /* Para iwas scrollbar kung sakaling malaki ang logo */
+/* Modal Box Design */
+.confirm-content {
+    background-color: white;
+    padding: 40px 30px;
+    border-radius: 25px;
+    text-align: center;
+    width: 90%;
+    max-width: 380px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.landing-card {
-  background: white;
-  padding: 40px;
-  border-radius: 30px;
-  text-align: center;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-  width: 90%;
-  max-width: 450px; /* Limit para hindi masyadong malapad sa desktop */
+@keyframes popIn {
+    from { transform: scale(0.7); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
 }
 
-/* HETO ANG PINAKA-IMPORTANTE: Control sa Logo Size */
-.landing-card img {
-  width: 180px; /* Sukat ng logo */
-  height: auto;
-  margin-bottom: 20px;
-  border-radius: 50%; /* Kung gusto mong bilog gaya ng nasa screenshot */
-  object-fit: contain;
+.confirm-icon { font-size: 60px; margin-bottom: 15px; }
+.confirm-content h2 { color: var(--green-dark); margin-bottom: 12px; font-size: 24px; }
+.confirm-content p { color: #555; margin-bottom: 30px; font-size: 16px; line-height: 1.5; }
+
+/* Modal Buttons - Adjusted with spacing and fix for text cutoff */
+.confirm-btns { 
+    display: flex; 
+    gap: 15px; 
+    margin-top: 40px; /* Nilayuan ang space sa pagitan ng text at buttons */
+    justify-content: center;
 }
 
-.brand-name {
-  color: var(--green-dark);
-  margin: 10px 0;
-  font-size: 2.5rem;
+.btn-modal-back {
+    min-width: 150px; /* Siniguro na hindi maputol ang text */
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    background: #f0f0f0;
+    color: #444;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 15px;
+    white-space: nowrap; /* Bawal mag-wrap ang text */
 }
 
-.welcome-text {
-  font-size: 14px;
-  letter-spacing: 3px;
-  color: #888;
-  margin: 0;
+.btn-modal-danger {
+    min-width: 150px; /* Siniguro na kasya ang 'Confirm' */
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    background: var(--danger);
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 15px;
+    white-space: nowrap; /* Bawal mag-wrap ang text */
 }
 
-.description {
-  color: #666;
-  font-size: 14px;
-  margin: 20px 0;
-  line-height: 1.6;
-}
-
-.enter-btn {
-  background-color: var(--green-dark);
-  color: white;
-  border: none;
-  padding: 15px 30px;
-  border-radius: 50px;
-  font-weight: bold;
-  font-size: 16px;
-  cursor: pointer;
-  width: 100%;
-  transition: 0.3s;
-}
-
-.enter-btn:hover {
-  background-color: #1a3a32; /* Medyo dark na green */
-  transform: translateY(-3px);
+/* ================================================= */
+/* NEW ADDITIONS (FLEXIBLE HOVER EFFECTS) */
+/* ================================================= */
+.menu-item-btn:hover .item-img-circle {
+    transform: scale(1.1); /* Zoom effect on image inside the button */
 }
